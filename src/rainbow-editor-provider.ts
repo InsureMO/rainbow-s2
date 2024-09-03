@@ -12,7 +12,7 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 	constructor(private readonly context: vscode.ExtensionContext) {
 	}
 
-	public async resolveCustomTextEditor(document: vscode.TextDocument, webviewPanel: vscode.WebviewPanel, token: vscode.CancellationToken): Promise<void> {
+	public async resolveCustomTextEditor(document: vscode.TextDocument, webviewPanel: vscode.WebviewPanel, _token: vscode.CancellationToken): Promise<void> {
 		webviewPanel.webview.options = {
 			enableScripts: true,
 			// Restrict the webview to only load resources from the `dist` and `webview/build` directories
@@ -25,14 +25,16 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 		webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
 
 		const updateWebview = () => {
-			webviewPanel.webview.postMessage({type: 'update', text: document.getText()});
+			// console.log(`update view with text[${document.getText()}].`);
+			webviewPanel.webview.postMessage({type: 'update', content: document.getText()});
 		};
+
 		// Hook up event handlers so that we can synchronize the webview with the text document.
 		// The text document acts as our model, so we have to sync change in the document to our
 		// editor and sync changes in the editor back to the document.
 		// Remember that a single text document can also be shared between multiple custom
 		// editors (this happens for example when you split a custom editor)
-		const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument(e => {
+		const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument(async e => {
 			if (e.document.uri.toString() === document.uri.toString()) {
 				updateWebview();
 			}
@@ -55,7 +57,25 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 		// 	}
 		// });
 
-		updateWebview();
+		const filename = document.fileName;
+		let fileType = '';
+		switch (true) {
+			case filename.endsWith('.d9') :
+			case filename.endsWith('.md'):
+				fileType = 'd9';
+				break;
+			case filename.endsWith('.o23'):
+			case filename.endsWith('.yml'):
+			case filename.endsWith('.yaml'):
+				fileType = 'o23';
+				break;
+			default:
+				fileType = 'unknown';
+				break;
+		}
+
+		// console.log(`init view with text[${document.getText()}].`);
+		webviewPanel.webview.postMessage({type: 'init', fileType, content: document.getText()});
 	}
 
 	private getHtmlForWebview(webview: vscode.Webview): string {
