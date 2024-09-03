@@ -1,10 +1,10 @@
 import * as vscode from 'vscode';
 import {getNonce} from './utils';
 
-export class D9EditorProvider implements vscode.CustomTextEditorProvider {
+export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 	public static register(context: vscode.ExtensionContext): vscode.Disposable {
-		const provider = new D9EditorProvider(context);
-		return vscode.window.registerCustomEditorProvider(D9EditorProvider.viewType, provider);
+		const provider = new RainbowEditorProvider(context);
+		return vscode.window.registerCustomEditorProvider(RainbowEditorProvider.viewType, provider);
 	}
 
 	private static readonly viewType = 'rainbow.d9Editor';
@@ -18,7 +18,6 @@ export class D9EditorProvider implements vscode.CustomTextEditorProvider {
 			// Restrict the webview to only load resources from the `dist` and `webview/build` directories
 			localResourceRoots: [
 				vscode.Uri.joinPath(this.context.extensionUri, 'dist'),
-				vscode.Uri.joinPath(this.context.extensionUri, 'media'),
 				vscode.Uri.joinPath(this.context.extensionUri, 'webview/dist')
 			]
 		};
@@ -75,7 +74,7 @@ export class D9EditorProvider implements vscode.CustomTextEditorProvider {
 				-->
 <!--				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'unsafe-inline' ${webview.cspSource}; style-src 'unsafe-inline' ${webview.cspSource}; script-src 'nonce-${nonce}';">-->
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
-				<title>@rainbow/d9 Editor</title>
+				<title>@rainbow Editor</title>
 			</head>
 			<body>
 				<div id="root"></div>

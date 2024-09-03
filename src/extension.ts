@@ -1,7 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import {D9EditorProvider} from './d9-editor-provider';
+import {RainbowEditorProvider} from './rainbow-editor-provider';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -22,7 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// context.subscriptions.push(disposable);
 	// register custom editor provider
-	context.subscriptions.push(D9EditorProvider.register(context));
+	context.subscriptions.push(RainbowEditorProvider.register(context));
 }
 
 // This method is called when your extension is deactivated

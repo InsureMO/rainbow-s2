@@ -23,6 +23,13 @@
 				],
 				"priority": "default"
 			}
+		],
+		"iconThemes": [
+			{
+				"id": "rainbow",
+				"label": "@rainbow",
+				"path": "./fileicons/rainbow-icon-theme.json"
+			}
 		]
 	},
 	"scripts": {

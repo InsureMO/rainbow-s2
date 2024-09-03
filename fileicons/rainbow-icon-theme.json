@@ -1,0 +1,14 @@
+{
+	"iconDefinitions": {
+		"_d9_file": {
+			"iconPath": "../media/d9.svg"
+		},
+		"_o23_file": {
+			"iconPath": "../media/o23.svg"
+		}
+	},
+	"fileExtensions": {
+		"d9": "_d9_file",
+		"o23": "_o23_file"
+	}
+}
