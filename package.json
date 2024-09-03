@@ -2,7 +2,12 @@
 	"name": "rainbow-s2",
 	"displayName": "@rainbow/s2",
 	"description": "Custom editor for @rainbow configuration files.",
-	"version": "0.0.1",
+	"publisher": "rainbow-s2",
+	"version": "0.1.0",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/InsureMO/rainbow-s2.git"
+	},
 	"engines": {
 		"vscode": "^1.92.0"
 	},
