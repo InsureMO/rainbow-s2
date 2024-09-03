@@ -1,5 +1,12 @@
+import {D9VSCodeEditor} from './d9';
+import {GlobalStyles} from './global-styles';
+import './initializer';
+
 const App = () => {
-	return <div>Hello, I am @rainbow/d9 editor!</div>;
+	return <>
+		<GlobalStyles/>
+		<D9VSCodeEditor/>
+	</>;
 };
 
 export default App;
