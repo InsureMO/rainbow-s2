@@ -2,8 +2,9 @@ import {ModelUtilsType, PropertyPathUtilsType, ValueUtilsType} from '@rainbow-d9
 
 declare global {
 	interface VSCode {
-		setState<T = any>(state: T): void;
+		setState<T>(state: T): void;
 		getState<T>(): T;
+		postMessage<T>(msg: T): void;
 	}
 
 	interface Window {

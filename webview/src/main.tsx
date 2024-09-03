@@ -1,35 +1,44 @@
 import {StrictMode} from 'react';
 import {createRoot} from 'react-dom/client';
 import App from './app';
-import {InitMessage, Message} from './types.ts';
-
-interface VSCodeState {
-	fileType: InitMessage['fileType'];
-	content?: InitMessage['content'];
-}
+import {
+	AskContentMessage,
+	AskUpdateContentMessage,
+	ContentChangedMessage,
+	FileType,
+	IncomingMessage,
+	ReplyContentMessage,
+	UpdateContentMessage
+} from './types.ts';
 
 const vscode = window.acquireVsCodeApi();
 
-const updateContent = (fileType: InitMessage['fileType'], content?: InitMessage['content']) => {
+const updateContent = (fileType: FileType, content?: string) => {
+	const onContentChanged = async (content: string) => {
+		// step y, notify text document that content changed
+		vscode.postMessage<ContentChangedMessage>({type: 'content-changed', content});
+	};
 	createRoot(document.getElementById('root')!).render(<StrictMode>
-		<App fileType={fileType} content={content}/>
+		<App fileType={fileType} content={content} onContentChanged={onContentChanged}/>
 	</StrictMode>);
 };
-const onMessage = (event: MessageEvent<Message>) => {
+// message listener must be installed before rendering
+const onMessage = (event: MessageEvent<IncomingMessage>) => {
 	const {data} = event;
 	switch (data.type) {
-		case 'init': {
-			const {fileType, content} = data as InitMessage;
-			updateContent(fileType, content);
-			vscode.setState<VSCodeState>({fileType, content});
-			// console.log(`view initialized with text[${data.content}].`);
+		case 'update-content': {
+			// step x, update editor content when existing
+			// update content passively; compare with existing content and then decide whether a page repaint is needed.
+			const {fileType, content} = data as UpdateContentMessage;
+			window.postMessage({type: 'ask-update-content', fileType, content} as AskUpdateContentMessage);
+			console.log(`content updated with text[${data.content}].`);
 			break;
 		}
-		case 'update': {
-			const fileType = vscode.getState<VSCodeState>().fileType;
-			const {content} = data;
+		case 'reply-content': {
+			// step 2, get replied content, and do initializing the editor
+			// request content by 'ask-content' message and directly repaint the page
+			const {fileType, content} = data as ReplyContentMessage;
 			updateContent(fileType, content);
-			vscode.setState<VSCodeState>({fileType, content});
 			// console.log(`view updated with text[${data.content}].`);
 			break;
 		}
@@ -37,8 +46,6 @@ const onMessage = (event: MessageEvent<Message>) => {
 };
 window.addEventListener('message', onMessage);
 
-const state = vscode.getState<VSCodeState>();
-if (state) {
-	console.log(`update view with state text[${state.content}].`);
-	updateContent(state.fileType, state.content);
-}
+// step 1, ask content to initialize the editor
+// ask content from editor provider
+vscode.postMessage<AskContentMessage>({type: 'ask-content'});
