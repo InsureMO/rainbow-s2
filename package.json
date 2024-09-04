@@ -19,11 +19,14 @@
 	"contributes": {
 		"customEditors": [
 			{
-				"viewType": "rainbow.d9Editor",
-				"displayName": "@rainbow/d9 Editor",
+				"viewType": "rainbow.editor",
+				"displayName": "@rainbow Editor",
 				"selector": [
 					{
 						"filenamePattern": "*.d9"
+					},
+					{
+						"filenamePattern": "*.o23"
 					}
 				],
 				"priority": "default"
@@ -53,7 +56,8 @@
 		"install:all": "yarn install && cd webview && yarn install",
 		"install:webview": "cd webview && yarn install",
 		"dev:webview": "cd webview && yarn dev",
-		"build:webview": "cd webview && yarn build"
+		"build:webview": "cd webview && yarn build",
+		"vsix": "npx @vscode/vsce package"
 	},
 	"devDependencies": {
 		"@types/vscode": "^1.92.0",

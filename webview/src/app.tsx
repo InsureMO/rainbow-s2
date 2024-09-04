@@ -1,15 +1,16 @@
 import {Fragment, useEffect, useState} from 'react';
-import {AppEventBusProvider, AppEventTypes, useAppEventBus} from './app-event-bus.tsx';
-import {D9VSCodeEditor} from './d9';
+import {AppEventBusProvider, AppEventTypes, useAppEventBus} from './app-event-bus';
+import {D9VSCodeEditor} from './d9-editor';
 import {GlobalStyles} from './global-styles';
 import './initializer';
+import {O23VSCodeEditor} from './o23-editor.tsx';
 import {
 	FileType,
 	InternalMessage,
 	InternalMessageType,
 	ReplyInitContentMessage,
 	TryUpdateContentMessage
-} from './types.ts';
+} from './types';
 
 interface ContentState {
 	fileType?: FileType;
@@ -93,6 +94,7 @@ const Editor = () => {
 		case 'd9':
 			return <D9VSCodeEditor/>;
 		case 'o23':
+			return <O23VSCodeEditor/>;
 		case 'unknown':
 			return <div>
 				Unknown file type. For @rainbow-d9, the file extension should be one of ".d9" or ".md". For

@@ -7,7 +7,7 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 		return vscode.window.registerCustomEditorProvider(RainbowEditorProvider.viewType, provider);
 	}
 
-	private static readonly viewType = 'rainbow.d9Editor';
+	private static readonly viewType = 'rainbow.editor';
 
 	constructor(private readonly context: vscode.ExtensionContext) {
 	}
@@ -68,6 +68,7 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 
 	private getHtmlForWebview(webview: vscode.Webview): string {
 		const scriptUri = webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, 'webview', 'dist', 'assets', 'index.js'));
+		const cssUri = webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, 'webview', 'dist', 'assets', 'index.css'));
 		// Use a nonce to whitelist which scripts can be run
 		const nonce = getNonce();
 
@@ -82,11 +83,12 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 				-->
 <!--				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'unsafe-inline' ${webview.cspSource}; style-src 'unsafe-inline' ${webview.cspSource}; script-src 'nonce-${nonce}';">-->
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<link rel="stylesheet" nonce="${nonce}" href="${cssUri}">
 				<title>@rainbow Editor</title>
 			</head>
 			<body>
-				<div id="root"></div>
-				<script type="module" nonce="${nonce}" src="${scriptUri}"></script>
+				<div id="root"/>
+				<script type="module" nonce="${nonce}" src="${scriptUri}"/>
 			</body>
 			</html>`;
 	}

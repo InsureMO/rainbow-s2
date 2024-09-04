@@ -1,6 +1,6 @@
 import {useCreateEventBus} from '@rainbow-d9/n1';
 import {createContext, ReactNode, useContext} from 'react';
-import {FileType} from './types.ts';
+import {FileType} from './types';
 
 export enum AppEventTypes {
 	INIT_CONTENT = 'init-content',

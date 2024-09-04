@@ -14,7 +14,7 @@ import {
 	ReplyInitContentMessage,
 	TryUpdateContentMessage,
 	UpdateContentMessage
-} from './types.ts';
+} from './types';
 
 const vscode = window.acquireVsCodeApi();
 

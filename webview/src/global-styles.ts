@@ -33,9 +33,9 @@ export const GlobalStyles: any = createGlobalStyle`
         &.vscode-dark {
             #root > div[data-w=d9-page] {
                 > div[data-w=d9-playground] {
-                    --d9-playground-widget-declaration-instruction-color: rgba(182,135,115,1);
-                    --d9-playground-widget-declaration-type-color: rgba(246,213,72,1);
-                    --d9-playground-widget-declaration-splitter-color: rgba(212,212,212,1);
+                    --d9-playground-widget-declaration-instruction-color: rgba(182, 135, 115, 1);
+                    --d9-playground-widget-declaration-type-color: rgba(246, 213, 72, 1);
+                    --d9-playground-widget-declaration-splitter-color: rgba(212, 212, 212, 1);
                 }
             }
         }
@@ -48,18 +48,23 @@ export const GlobalStyles: any = createGlobalStyle`
     #root > div[data-w=d9-page] {
         height: 100vh;
 
-        > div[data-w=d9-playground] {
+        > div[data-w=d9-playground], > div[data-w=o23-playground] {
             border: 0;
             border-top: 1px solid rgba(214, 214, 214, 1);
+            border-radius: 0;
             height: 100%;
             min-height: 100%;
 
             div.cm-editor > div.cm-scroller {
-                border-right: 1px solid rgba(214, 214, 214, 1);
-
                 > div.cm-gutters {
                     background-color: var(--d9-background-color);
                 }
+            }
+        }
+
+        > div[data-w=d9-playground] {
+            div.cm-editor > div.cm-scroller {
+                border-right: 1px solid rgba(214, 214, 214, 1);
             }
         }
     }
