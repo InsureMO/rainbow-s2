@@ -2,7 +2,8 @@ import {NodeDef, ObjectPropValue, PropValue, StandaloneRoot, ValueChangedOptions
 import {GlobalRoot} from '@rainbow-d9/n2';
 import {parseDoc} from '@rainbow-d9/n3';
 import {ExternalDefsTypes} from '@rainbow-d9/n5';
-import {useState} from 'react';
+import {Fragment, useEffect, useState} from 'react';
+import {AppEventTypes, useAppEventBus} from '../app-event-bus.tsx';
 
 const markdown = `# Page::D9 VSCode Editor
 - Playground::::markdown
@@ -12,12 +13,8 @@ const markdown = `# Page::D9 VSCode Editor
   - valueChanged: @ext.playground.valueChanged
 `;
 
-interface D9VSCodeEditorProps {
-	content?: string;
-	onContentChanged: (content: string) => Promise<void>;
-}
-
 interface D9VSCodeEditorState {
+	initialized: boolean;
 	/** node def of editor */
 	def: NodeDef;
 	/** markdown of editor */
@@ -30,36 +27,48 @@ interface D9VSCodeEditorState {
 	externalDefs: object;
 }
 
-export const D9VSCodeEditor = (props: D9VSCodeEditorProps) => {
-	const [state] = useState<D9VSCodeEditorState>(() => {
+export const D9VSCodeEditor = () => {
+	const {on, off, fire} = useAppEventBus();
+	const [state, setState] = useState<D9VSCodeEditorState>(() => {
 		const mockData = {};
 		const def = parseDoc(markdown).node;
 		return {
+			initialized: false,
 			def, markdown,
-			editModel: {markdown: props.content},
+			editModel: {markdown: ''},
 			externalDefs: {
 				playground: {
 					externalDefs: {},
 					mockData: async () => mockData,
 					externalDefsTypes: {} as ExternalDefsTypes,
 					valueChanged: async <NV extends PropValue>(options: ValueChangedOptions<NV>) => {
-						await props.onContentChanged((options.newValue ?? '') as string);
+						// fire event to content holder to change content
+						fire(AppEventTypes.CONTENT_CHANGED_BY_EDITOR, (options.newValue ?? '') as string);
 					}
 				}
 			},
-			mockData: {}
+			mockData
 		};
 	});
-	// TODO handle content changed event, update state
-	/** handle editor markdown changed */
-	// useEffect(() => {
-	// 	if (markdown === state.markdown) {
-	// 		return;
-	// 	}
-	// 	setState(state => ({...state, def: parseDoc(markdown).node, markdown}));
-	// }, [markdown, state.markdown]);
+	useEffect(() => {
+		const onContentChangeByDocument = (content?: string) => {
+			setState(state => ({...state, initialized: true, editModel: {markdown: content ?? ''}}));
+		};
+		on(AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, onContentChangeByDocument);
+		if (!state.initialized) {
+			console.log(`%Fire[Ask content].`, 'color:red;font-weight:bold;');
+			fire(AppEventTypes.ASK_CONTENT, onContentChangeByDocument);
+		}
+		return () => {
+			off(AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, onContentChangeByDocument);
+		};
+	}, []);
+
+	if (!state.initialized) {
+		return <Fragment/>;
+	}
 
 	return <GlobalRoot>
-		<StandaloneRoot {...state.def} $root={state.editModel} externalDefs={state.externalDefs}/>
+		<StandaloneRoot {...state.def!} $root={state.editModel!} externalDefs={state.externalDefs!}/>
 	</GlobalRoot>;
 };

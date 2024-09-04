@@ -46,15 +46,19 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 		// Receive message from the webview.
 		webviewPanel.webview.onDidReceiveMessage(e => {
 			switch (e.type) {
+				case 'ask-init-permit': {
+					webviewPanel.webview.postMessage({type: 'init-content'});
+					return;
+				}
 				case 'ask-content': {
-					// step 1, handle the asking content for initializing the editor
+					// handle the asking content for initializing the editor
 					webviewPanel.webview.postMessage({
 						type: 'reply-content', fileType: this.getFileType(document), content: document.getText()
 					});
 					return;
 				}
 				case 'content-changed': {
-					// step x, handle the content changed, sync to text document
+					// handle the content changed, sync to text document
 					this.updateTextDocument(document, e.content);
 					return;
 				}
