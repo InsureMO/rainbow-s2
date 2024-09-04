@@ -7,6 +7,7 @@ declare global {
 		postMessage<T>(msg: T): void;
 	}
 
+	// noinspection JSUnusedGlobalSymbols
 	interface Window {
 		PPUtils: PropertyPathUtilsType;
 		VUtils: ValueUtilsType;

@@ -6,7 +6,6 @@ import {CalendarUtils, DropdownUtils} from '@rainbow-d9/n2';
 import {registerN2Widgets, Widget} from '@rainbow-d9/n3';
 import {registerPlayground as registerD9Playground} from '@rainbow-d9/n5';
 import {registerPlayground as registerO23Playground} from '@rainbow-d9/n6';
-// import {registerPlayground as registerO23Playground} from '@rainbow-d9/n6';
 import dayjs from 'dayjs';
 import ArraySupport from 'dayjs/plugin/arraySupport';
 import BuddhistEra from 'dayjs/plugin/buddhistEra';

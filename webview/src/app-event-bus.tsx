@@ -2,6 +2,7 @@ import {useCreateEventBus} from '@rainbow-d9/n1';
 import {createContext, ReactNode, useContext} from 'react';
 import {FileType} from './types';
 
+// eslint-disable-next-line react-refresh/only-export-components
 export enum AppEventTypes {
 	INIT_CONTENT = 'init-content',
 	CONTENT_INITIALIZED = 'content-initialized',
@@ -45,4 +46,5 @@ export const AppEventBusProvider = (props: { children?: ReactNode }) => {
 	</Context.Provider>;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAppEventBus = () => useContext(Context);

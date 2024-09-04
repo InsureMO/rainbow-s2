@@ -12,6 +12,7 @@ export interface IncomingMessage {
 	content?: string;
 }
 
+// noinspection JSUnusedGlobalSymbols
 export interface InitMessage extends IncomingMessage {
 	type: IncomingMessageType.INIT_CONTENT;
 }

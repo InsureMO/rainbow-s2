@@ -1,7 +1,7 @@
 import {createGlobalStyle} from 'styled-components';
 
 // noinspection CssUnresolvedCustomProperty,CssNoGenericFontName,CssUnusedSymbol
-export const GlobalStyles: any = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
     *, *:before, *:after {
         margin: 0;
         padding: 0;

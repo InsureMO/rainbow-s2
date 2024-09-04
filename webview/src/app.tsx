@@ -18,6 +18,8 @@ interface ContentState {
 }
 
 const ContentHolder = (props: AppProps) => {
+	const {onContentChanged} = props;
+
 	const {on, off, fire} = useAppEventBus();
 	const [state, setState] = useState<ContentState>({});
 	useEffect(() => {
@@ -53,7 +55,7 @@ const ContentHolder = (props: AppProps) => {
 		const onContentChangedByEditor = async (content?: string) => {
 			// handle event content changed event from editor
 			setState(state => ({...state, content: content ?? ''}));
-			await props.onContentChanged(content ?? '');
+			await onContentChanged(content ?? '');
 		};
 		window.addEventListener('message', onMessage);
 		on(AppEventTypes.INIT_CONTENT, onInitContent);
@@ -65,7 +67,7 @@ const ContentHolder = (props: AppProps) => {
 			off(AppEventTypes.ASK_CONTENT, onAskContent);
 			off(AppEventTypes.CONTENT_CHANGED_BY_EDITOR, onContentChangedByEditor);
 		};
-	}, [state.fileType, state.content, props.onContentChanged]);
+	}, [on, off, fire, state.fileType, state.content, onContentChanged]);
 
 	return <Fragment/>;
 };
@@ -88,7 +90,7 @@ const Editor = () => {
 			off(AppEventTypes.CONTENT_INITIALIZED, onContentInitialized);
 			off(AppEventTypes.FILE_TYPE_CHANGED, onFileTypeChanged);
 		};
-	}, []);
+	}, [on, off]);
 
 	switch (fileType) {
 		case 'd9':
@@ -131,7 +133,7 @@ const EditorWrapper = (props: AppProps) => {
 		return () => {
 			window.removeEventListener('message', onMessage);
 		};
-	}, []);
+	}, [fire]);
 
 	return <>
 		<ContentHolder onContentChanged={onContentChanged}/>

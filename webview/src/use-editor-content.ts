@@ -33,5 +33,5 @@ export const useEditorContent = <S extends EditorContentState>(options: UseEdito
 		return () => {
 			off(AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, onContentChangeByDocument);
 		};
-	}, [on, off, fire, state.initialized]);
+	}, [on, off, fire, state.initialized, setState]);
 };
