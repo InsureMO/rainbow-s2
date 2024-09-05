@@ -9,7 +9,8 @@ import {
 	InternalMessage,
 	InternalMessageType,
 	ReplyInitContentMessage,
-	TryUpdateContentMessage
+	TryUpdateContentMessage,
+	TryUpdateThemeMessage
 } from './types';
 
 interface ContentState {
@@ -44,7 +45,7 @@ const ContentHolder = (props: AppProps) => {
 		};
 		const onInitContent = (fileType: FileType, content?: string) => {
 			// handle event init content event
-			console.log(`%On[Init content]%c, with [fileType=${fileType}, content=${content}], then %cFire[Content initialized].`,
+			console.log(`%cOn[Init content]%c, with [fileType=${fileType}, content=${content}], then %cFire[Content initialized].`,
 				'color:red;font-weight:bold;', '', 'color:red;font-weight:bold;');
 			setState(state => ({...state, fileType, content: content ?? ''}));
 			fire(AppEventTypes.CONTENT_INITIALIZED, fileType);
@@ -119,11 +120,17 @@ const EditorWrapper = (props: AppProps) => {
 		const onMessage = (event: MessageEvent<InternalMessage>) => {
 			// handle replied init content
 			const {data} = event;
-			if (data.type === InternalMessageType.REPLY_INIT_CONTENT) {
-				const {fileType, content} = data as ReplyInitContentMessage;
-				console.log(`%cHandle[Reply init content from app]%c, with [fileType=${fileType}, content=${content}], then %cFire[Init content].`,
-					'color:red;font-weight:bold;', '', 'color:red;font-weight:bold;');
-				fire(AppEventTypes.INIT_CONTENT, fileType, content);
+			switch (data.type) {
+				case InternalMessageType.REPLY_INIT_CONTENT: {
+					const {fileType, content} = data as ReplyInitContentMessage;
+					console.log(`%cHandle[Reply init content from app]%c, with [fileType=${fileType}, content=${content}], then %cFire[Init content].`,
+						'color:red;font-weight:bold;', '', 'color:red;font-weight:bold;');
+					fire(AppEventTypes.INIT_CONTENT, fileType, content);
+					break;
+				}
+				case InternalMessageType.TRY_UPDATE_THEME: {
+					fire(AppEventTypes.CHANGE_THEME, (data as TryUpdateThemeMessage).theme);
+				}
 			}
 		};
 		window.addEventListener('message', onMessage);

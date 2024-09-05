@@ -3,7 +3,8 @@ export type FileType = 'd9' | 'o23' | 'unknown';
 export enum IncomingMessageType {
 	INIT_CONTENT = 'init-content',
 	UPDATE_CONTENT = 'update-content',
-	REPLY_CONTENT = 'reply-content'
+	REPLY_CONTENT = 'reply-content',
+	UPDATE_THEME = 'update-theme'
 }
 
 // message from editor provider to app
@@ -25,6 +26,11 @@ export interface UpdateContentMessage extends IncomingMessage {
 export interface ReplyContentMessage extends IncomingMessage {
 	type: IncomingMessageType.REPLY_CONTENT;
 	fileType: FileType;
+}
+
+// noinspection JSUnusedGlobalSymbols
+export interface ThemeChangeMessage extends IncomingMessage {
+	type: IncomingMessageType.UPDATE_THEME;
 }
 
 export enum OutgoingMessageType {
@@ -54,7 +60,8 @@ export interface ContentChangedMessage extends OutgoingMessage {
 export enum InternalMessageType {
 	TRY_UPDATE_CONTENT = 'try-update-content',
 	ASK_INIT_CONTENT = 'ask-init-content',
-	REPLY_INIT_CONTENT = 'reply-init-content'
+	REPLY_INIT_CONTENT = 'reply-init-content',
+	TRY_UPDATE_THEME = 'try-update-theme'
 }
 
 // message in app
@@ -68,6 +75,7 @@ export interface TryUpdateContentMessage extends InternalMessage {
 	content?: string;
 }
 
+// noinspection JSUnusedGlobalSymbols
 export interface AskInitContentMessage extends InternalMessage {
 	type: InternalMessageType.ASK_INIT_CONTENT;
 }
@@ -76,4 +84,16 @@ export interface ReplyInitContentMessage extends InternalMessage {
 	type: InternalMessageType.REPLY_INIT_CONTENT;
 	fileType: FileType;
 	content?: string;
+}
+
+export enum ThemeKind {
+	LIGHT = 'light',
+	DARK = 'dark',
+	HIGH_CONTRAST_LIGHT = 'high-contrast-light',
+	HIGH_CONTRAST_DARK = 'high-contrast-dark'
+}
+
+export interface TryUpdateThemeMessage extends InternalMessage {
+	type: InternalMessageType.TRY_UPDATE_THEME;
+	theme: ThemeKind;
 }

@@ -1,8 +1,12 @@
-import {NodeDef, StandaloneRoot} from '@rainbow-d9/n1';
+import {BridgeEventBusProvider, NodeDef, PropValue, StandaloneRoot, ValueChangedOptions} from '@rainbow-d9/n1';
 import {GlobalRoot} from '@rainbow-d9/n2';
 import {parseDoc} from '@rainbow-d9/n3';
+import {PlaygroundDecorator} from '@rainbow-d9/n5';
 import {PlaygroundModuleAssistant} from '@rainbow-d9/n6';
-import {Fragment, useState} from 'react';
+import {Fragment, useRef, useState} from 'react';
+import {AppEventTypes, useAppEventBus} from './app-event-bus.tsx';
+import {getThemeFromDOM, theme, ThemeHandler} from './theme-handler.tsx';
+import {ThemeKind} from './types.ts';
 import {EditorContentState, useEditorContent} from './use-editor-content.ts';
 
 const markdown = `# Page::O23 VSCode Editor
@@ -12,6 +16,8 @@ const markdown = `# Page::O23 VSCode Editor
   - typeOrmDatasources: @ext.playground.typeOrmDatasources
   - refPipelines: @ext.playground.refPipelines
   - refSteps: @ext.playground.refSteps
+  - valueChanged: @ext.playground.valueChanged
+  - theme: @ext.playground.decorator.theme
 `;
 
 interface O23VSCodeEditorState extends EditorContentState {
@@ -24,6 +30,8 @@ interface O23VSCodeEditorState extends EditorContentState {
 }
 
 export const O23VSCodeEditor = () => {
+	const {fire} = useAppEventBus();
+	const themeRef = useRef<ThemeKind>(getThemeFromDOM());
 	const [state, setState] = useState<O23VSCodeEditorState>(() => {
 		const def = parseDoc(markdown).node;
 		// noinspection JSUnusedGlobalSymbols
@@ -64,7 +72,12 @@ export const O23VSCodeEditor = () => {
 							{code: 'ask-roles', name: 'Ask user roles'},
 							{code: 'ask-permissions', name: 'Ask user permissions'}
 						];
-					}) as PlaygroundModuleAssistant['askRefSteps']
+					}) as PlaygroundModuleAssistant['askRefSteps'],
+					valueChanged: async <NV extends PropValue>(options: ValueChangedOptions<NV>) => {
+						// fire event to content holder to change content
+						fire(AppEventTypes.CONTENT_CHANGED_BY_EDITOR, (options.newValue ?? '') as string);
+					},
+					decorator: {theme: theme(themeRef)} as PlaygroundDecorator
 				}
 			}
 		};
@@ -75,8 +88,10 @@ export const O23VSCodeEditor = () => {
 		return <Fragment/>;
 	}
 
-	console.log('xxx');
 	return <GlobalRoot>
-		<StandaloneRoot {...state.def!} $root={state.editModel!} externalDefs={state.externalDefs!}/>
+		<BridgeEventBusProvider>
+			<ThemeHandler theme={themeRef}/>
+			<StandaloneRoot {...state.def!} $root={state.editModel!} externalDefs={state.externalDefs!}/>
+		</BridgeEventBusProvider>
 	</GlobalRoot>;
 };

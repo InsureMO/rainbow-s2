@@ -12,7 +12,9 @@ import {
 	OutgoingMessageType,
 	ReplyContentMessage,
 	ReplyInitContentMessage,
+	ThemeKind,
 	TryUpdateContentMessage,
+	TryUpdateThemeMessage,
 	UpdateContentMessage
 } from './types';
 
@@ -64,6 +66,25 @@ const onMessage = (event: MessageEvent<IncomingMessage | InternalMessage>) => {
 				'color:red;font-weight:bold;', '', 'color:red;font-weight:bold;');
 			break;
 		}
+		case IncomingMessageType.UPDATE_THEME:
+			const theme = (() => {
+				const classList = document.body.classList;
+				switch (true) {
+					case classList.contains('vscode-high-contrast-light'):
+						return ThemeKind.HIGH_CONTRAST_LIGHT;
+					case classList.contains('vscode-light'):
+						return ThemeKind.LIGHT;
+					case classList.contains('vscode-high-contrast'):
+						return ThemeKind.HIGH_CONTRAST_DARK;
+					case classList.contains('vscode-dark'):
+						return ThemeKind.DARK;
+					default:
+						return ThemeKind.LIGHT;
+				}
+			})();
+			window.postMessage({type: InternalMessageType.TRY_UPDATE_THEME, theme} as TryUpdateThemeMessage);
+			console.log(`%cHandle[Update theme from editor].`, 'color:red;font-weight:bold;');
+			break;
 	}
 };
 window.addEventListener('message', onMessage);

@@ -818,19 +818,19 @@
     "@projectstorm/react-diagrams-defaults" "7.1.3"
     "@projectstorm/react-diagrams-routing" "7.1.3"
 
-"@rainbow-d9/echarts@^1.1.43":
-  version "1.1.43"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/echarts/-/echarts-1.1.43.tgz#b8bbfd04388140a46deb6928e1cdfa43ba622baf"
-  integrity sha512-VUvhP7oJvu/vez5zlnPr/Pfywq9bTIp2jQgmHk1SxI2epiUTY6JXPISKZCtWw98r3+sba3XmUs18l1bdDPnUvg==
+"@rainbow-d9/echarts@^1.1.44-alpha.1":
+  version "1.1.44-alpha.1"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/echarts/-/echarts-1.1.44-alpha.1.tgz#ec63a10dcfa7910acf938b46867808e2c39d6945"
+  integrity sha512-3dzz4seuEvM9BrVa7pJy20bGFjUPJbpksgscQthPnJ3r2PwTMxTWh+DX9hRGcLmeY/9Wmktr8RbQUQW+aAx6+A==
   dependencies:
-    "@rainbow-d9/n2" "1.1.43"
-    "@rainbow-d9/n3" "1.1.43"
+    "@rainbow-d9/n2" "1.1.44-alpha.1"
+    "@rainbow-d9/n3" "1.1.44-alpha.1"
     echarts "^5.4.3"
 
-"@rainbow-d9/n1@1.1.43":
-  version "1.1.43"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/n1/-/n1-1.1.43.tgz#f71196ac4288ec7a7b5121cb093f278f5440bd7f"
-  integrity sha512-hngtzMwlLXuuGDfW/Sex4BvSJc4Ux8fVA0X6zuwSu5IgtHHJh46HCzXOdMkrBZxoqt+fppCwTw4vqZeSknDjsA==
+"@rainbow-d9/n1@1.1.44-alpha.1":
+  version "1.1.44-alpha.1"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/n1/-/n1-1.1.44-alpha.1.tgz#18b7edebd53db91e8e233634215a5990036b262d"
+  integrity sha512-76IGDdFCnuLSqSyUYTexuh128mtv+NjUaRutp1R8Z9ZpQvR+J3VeHwOTIN+ezEOwHkCD6MbhhzTSwdfZvlVh4A==
   dependencies:
     buffer "^6.0.3"
     events "^3.3.0"
@@ -838,12 +838,12 @@
     react "^18.2.0"
     react-dom "^18.2.0"
 
-"@rainbow-d9/n2@1.1.43":
-  version "1.1.43"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/n2/-/n2-1.1.43.tgz#9c011bc75fa4c63695319573a2e2481fe4dd4f9d"
-  integrity sha512-yXbMUp8T6An8gXCb73YBjRvR9zQ6nikRhpsvJr/1K17R3VArkoeg945uDEdbFUIUqUIcoSUb71jqZPBJW73FBQ==
+"@rainbow-d9/n2@1.1.44-alpha.1":
+  version "1.1.44-alpha.1"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/n2/-/n2-1.1.44-alpha.1.tgz#e96764fa17a690a388697b1b8b56c71d4a8a8615"
+  integrity sha512-q3WXIIsTfSKqOkDoJiKzpKLvJaNPD70Y0nQnQz0Rh8uShHcLgupgBqXmQUk8lErZkOkjMjJHnFd3bYBcVaoWwg==
   dependencies:
-    "@rainbow-d9/n1" "1.1.43"
+    "@rainbow-d9/n1" "1.1.44-alpha.1"
     color "^4.2.3"
     dayjs "^1.11.7"
     imask "^7.5.0"
@@ -852,12 +852,12 @@
     react-imask "^7.5.0"
     styled-components "5.3.11"
 
-"@rainbow-d9/n3@1.1.43":
-  version "1.1.43"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/n3/-/n3-1.1.43.tgz#2ca32ab999b2f02f3aadf8c6c203f0064efeca57"
-  integrity sha512-0bsgY0tGg9u31dgRTX0o1SrwGbH/8Y+JoWj2pcb5LEW7s49XWQXA61qeOE5HFnMZyrHUkadX84OZeveOImUbjQ==
+"@rainbow-d9/n3@1.1.44-alpha.1":
+  version "1.1.44-alpha.1"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/n3/-/n3-1.1.44-alpha.1.tgz#b2bf5669467868c8fbc9b2b5e7423944cc9489c9"
+  integrity sha512-qBSPZk6Fu9B0joui571a69KGaQK/ifXetQ3wTPsfJKGHgoYnmxx/n5HFIlOUB0o3AFZkPRUb0mWFehF5xbweNg==
   dependencies:
-    "@rainbow-d9/n1" "1.1.43"
+    "@rainbow-d9/n1" "1.1.44-alpha.1"
     mdast "^3.0.0"
     mdast-util-from-markdown "2.0.1"
     mdast-util-frontmatter "2.0.1"
@@ -872,32 +872,32 @@
     micromark-extension-gfm-table "2.0.0"
     micromark-extension-gfm-task-list-item "2.0.1"
 
-"@rainbow-d9/n5@^1.1.43":
-  version "1.1.43"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/n5/-/n5-1.1.43.tgz#aca479015527d95e8340b3b3ab72f7393e32461b"
-  integrity sha512-Ut2sVdqHYSiQxAirzKxrrB6hA/vPTXpaxoQorVIsLi/63RreZ9GIs8ytq11vrA5SnSYxcwThJNJ+u82A5xDKjA==
+"@rainbow-d9/n5@^1.1.44-alpha.1":
+  version "1.1.44-alpha.1"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/n5/-/n5-1.1.44-alpha.1.tgz#4dac5a713991f918dc91863ad1098438bf64e120"
+  integrity sha512-tgC3IK7580IcJCWhSZSw2S+RMIaSIGPkg3KMQBuTkQy0HgY8ZOGQ7n7RMNQywrcV39KEUgdwCyAV5eu1T/EFtg==
   dependencies:
     "@codemirror/lang-javascript" "^6.2.2"
     "@codemirror/lang-json" "^6.0.1"
     "@codemirror/lang-markdown" "^6.2.4"
-    "@rainbow-d9/n2" "1.1.43"
-    "@rainbow-d9/n3" "1.1.43"
+    "@rainbow-d9/n2" "1.1.44-alpha.1"
+    "@rainbow-d9/n3" "1.1.44-alpha.1"
     codemirror "^6.0.1"
     nanoid "^4.0.0"
     react "^18.2.0"
     react-dom "^18.2.0"
     styled-components "5.3.11"
 
-"@rainbow-d9/n6@^1.1.43":
-  version "1.1.43"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/n6/-/n6-1.1.43.tgz#207018c76e6843dbb86171f7c4e7c47964c58223"
-  integrity sha512-xFgqpd/fJYaP10iK9wxOw0Gg3Ewe8EspmxZ//2PBPc1zQiJk575TSTxIfvOaZEHzWfkZwBTqp1cGtHr31MAvOQ==
+"@rainbow-d9/n6@^1.1.44-alpha.1":
+  version "1.1.44-alpha.1"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/n6/-/n6-1.1.44-alpha.1.tgz#9e55b00a258c84ec734625aba8e418116b3bb03e"
+  integrity sha512-tBSWToFNfJh9nUw+dn5tAlWz+nm9BMuIYNzbkRIZMptkDkEBw/EUqTNrm6dj3DNYPP4Xy0bxnFcJoZp5Xz/qaQ==
   dependencies:
     "@codemirror/lang-javascript" "^6.2.2"
     "@codemirror/lang-sql" "^6.7.0"
     "@projectstorm/react-diagrams" "^7.0.4"
-    "@rainbow-d9/n2" "1.1.43"
-    "@rainbow-d9/n3" "1.1.43"
+    "@rainbow-d9/n2" "1.1.44-alpha.1"
+    "@rainbow-d9/n3" "1.1.44-alpha.1"
     "@types/dom-to-image" "^2.6.7"
     color "^4.2.3"
     dom-to-image "^2.6.0"
@@ -1206,6 +1206,22 @@
   dependencies:
     "@typescript-eslint/types" "8.3.0"
     eslint-visitor-keys "^3.4.3"
+
+"@uiw/codemirror-theme-vscode@^4.23.0":
+  version "4.23.0"
+  resolved "https://registry.yarnpkg.com/@uiw/codemirror-theme-vscode/-/codemirror-theme-vscode-4.23.0.tgz#9f5b7456061e68596a4eb411953e9c3bd049f5f6"
+  integrity sha512-zl1FD7U1b58tqlF216jYv2okvVkTe+FP1ztqO/DF129bcH99QjszkakshyfxQEvvF4ys3zyzqZ7vU3VYBir8tg==
+  dependencies:
+    "@uiw/codemirror-themes" "4.23.0"
+
+"@uiw/codemirror-themes@4.23.0":
+  version "4.23.0"
+  resolved "https://registry.yarnpkg.com/@uiw/codemirror-themes/-/codemirror-themes-4.23.0.tgz#cc5b5242d3e67caf49c2a9120e804b16ad79f86d"
+  integrity sha512-9fiji9xooZyBQozR1i6iTr56YP7j/Dr/VgsNWbqf5Szv+g+4WM1iZuiDGwNXmFMWX8gbkDzp6ASE21VCPSofWw==
+  dependencies:
+    "@codemirror/language" "^6.0.0"
+    "@codemirror/state" "^6.0.0"
+    "@codemirror/view" "^6.0.0"
 
 "@ungap/structured-clone@^1.0.0":
   version "1.2.0"

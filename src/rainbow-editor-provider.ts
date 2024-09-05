@@ -38,10 +38,14 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 				});
 			}
 		});
+		const changeActiveColorThemeSubscription = vscode.window.onDidChangeActiveColorTheme(() => {
+			webviewPanel.webview.postMessage({type: 'update-theme'});
+		});
 
 		// Make sure we get rid of the listener when our editor is closed.
 		webviewPanel.onDidDispose(() => {
 			changeDocumentSubscription.dispose();
+			changeActiveColorThemeSubscription.dispose();
 		});
 		// Receive message from the webview.
 		webviewPanel.webview.onDidReceiveMessage(e => {

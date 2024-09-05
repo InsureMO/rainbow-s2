@@ -1,6 +1,6 @@
 import {useCreateEventBus} from '@rainbow-d9/n1';
 import {createContext, ReactNode, useContext} from 'react';
-import {FileType} from './types';
+import {FileType, ThemeKind} from './types';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export enum AppEventTypes {
@@ -10,6 +10,7 @@ export enum AppEventTypes {
 	FILE_TYPE_CHANGED = 'file-type-changed',
 	CONTENT_CHANGED_BY_DOCUMENT = 'content-changed-by-document',
 	CONTENT_CHANGED_BY_EDITOR = 'content-changed-by-editor',
+	CHANGE_THEME = 'change-theme'
 }
 
 export interface PlaygroundEventBus {
@@ -31,6 +32,9 @@ export interface PlaygroundEventBus {
 	fire(type: AppEventTypes.CONTENT_CHANGED_BY_EDITOR, content?: string): this;
 	on(type: AppEventTypes.CONTENT_CHANGED_BY_EDITOR, listener: (content?: string) => void): this;
 	off(type: AppEventTypes.CONTENT_CHANGED_BY_EDITOR, listener: (content?: string) => void): this;
+	fire(type: AppEventTypes.CHANGE_THEME, theme: ThemeKind): this;
+	on(type: AppEventTypes.CHANGE_THEME, listener: (theme: ThemeKind) => void): this;
+	off(type: AppEventTypes.CHANGE_THEME, listener: (theme: ThemeKind) => void): this;
 }
 
 const Context = createContext<PlaygroundEventBus>({} as PlaygroundEventBus);
