@@ -4,6 +4,7 @@ import {Fragment, MutableRefObject, useEffect} from 'react';
 import {AppEventTypes, useAppEventBus} from './app-event-bus.tsx';
 import {ThemeKind} from './types.ts';
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const getThemeFromDOM = (): ThemeKind => {
 	const classList = document.body.classList;
 	if (classList.contains('vscode-dark')) {
@@ -18,6 +19,8 @@ export const getThemeFromDOM = (): ThemeKind => {
 		return ThemeKind.LIGHT;
 	}
 };
+
+// eslint-disable-next-line react-refresh/only-export-components
 export const theme = (ref: MutableRefObject<ThemeKind>) => {
 	return (theme?: string) => {
 		const kind = theme || ref.current;
