@@ -1,6 +1,6 @@
 import {ObjectPropValue} from '@rainbow-d9/n1';
 import {Dispatch, SetStateAction, useEffect} from 'react';
-import {AppEventTypes, useAppEventBus} from './app-event-bus.tsx';
+import {AppEventTypes, useAppEventBus} from './app-event-bus';
 
 export interface EditorContentEditModel extends ObjectPropValue {
 	config: string;

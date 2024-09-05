@@ -4,9 +4,9 @@ import {parseDoc} from '@rainbow-d9/n3';
 import {ExternalDefsTypes, PlaygroundDecorator} from '@rainbow-d9/n5';
 import {Fragment, useRef, useState} from 'react';
 import {AppEventTypes, useAppEventBus} from './app-event-bus';
-import {getThemeFromDOM, theme, ThemeHandler} from './theme-handler.tsx';
-import {ThemeKind} from './types.ts';
-import {EditorContentState, useEditorContent} from './use-editor-content.ts';
+import {getThemeFromDOM, theme, ThemeHandler} from './theme-handler';
+import {ThemeKind} from './types';
+import {EditorContentState, useEditorContent} from './use-editor-content';
 
 const markdown = `# Page::D9 VSCode Editor
 - Playground::::config

@@ -3,7 +3,7 @@ import {AppEventBusProvider, AppEventTypes, useAppEventBus} from './app-event-bu
 import {D9VSCodeEditor} from './d9-editor';
 import {GlobalStyles} from './global-styles';
 import './initializer';
-import {O23VSCodeEditor} from './o23-editor.tsx';
+import {O23VSCodeEditor} from './o23-editor';
 import {
 	FileType,
 	InternalMessage,

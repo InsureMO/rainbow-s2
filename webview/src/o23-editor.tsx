@@ -4,10 +4,10 @@ import {parseDoc} from '@rainbow-d9/n3';
 import {PlaygroundDecorator} from '@rainbow-d9/n5';
 import {PlaygroundModuleAssistant} from '@rainbow-d9/n6';
 import {Fragment, useRef, useState} from 'react';
-import {AppEventTypes, useAppEventBus} from './app-event-bus.tsx';
-import {getThemeFromDOM, theme, ThemeHandler} from './theme-handler.tsx';
-import {ThemeKind} from './types.ts';
-import {EditorContentState, useEditorContent} from './use-editor-content.ts';
+import {AppEventTypes, useAppEventBus} from './app-event-bus';
+import {getThemeFromDOM, theme, ThemeHandler} from './theme-handler';
+import {ThemeKind} from './types';
+import {EditorContentState, useEditorContent} from './use-editor-content';
 
 const markdown = `# Page::O23 VSCode Editor
 - O23Playground::::config

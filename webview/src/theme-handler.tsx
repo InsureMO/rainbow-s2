@@ -1,8 +1,8 @@
-import {BridgeToRootEventTypes, useBridgeEventBus} from '@rainbow-d9/n1';
+import {BridgeToRootEventTypes, useBridgeEventBus, useForceUpdate} from '@rainbow-d9/n1';
 import {vscodeDark, vscodeLight} from '@uiw/codemirror-theme-vscode';
-import {Fragment, MutableRefObject, useEffect} from 'react';
-import {AppEventTypes, useAppEventBus} from './app-event-bus.tsx';
-import {ThemeKind} from './types.ts';
+import {MutableRefObject, useEffect} from 'react';
+import {AppEventTypes, useAppEventBus} from './app-event-bus';
+import {ThemeKind} from './types';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const getThemeFromDOM = (): ThemeKind => {
@@ -42,16 +42,18 @@ export const ThemeHandler = (props: { theme: MutableRefObject<ThemeKind> }) => {
 
 	const {on, off} = useAppEventBus();
 	const {fire} = useBridgeEventBus();
+	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		const onChangeTheme = (kind: ThemeKind) => {
 			theme.current = kind;
 			fire(BridgeToRootEventTypes.THEME_CHANGED, kind);
+			forceUpdate();
 		};
 		on(AppEventTypes.CHANGE_THEME, onChangeTheme);
 		return () => {
 			off(AppEventTypes.CHANGE_THEME, onChangeTheme);
 		};
-	}, [on, off, fire]);
+	}, [on, off, fire, forceUpdate, theme]);
 
-	return <Fragment/>;
+	return <div className={theme.current} style={{display: 'none'}}/>;
 };
