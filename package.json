@@ -2,7 +2,7 @@
 	"name": "rainbow-s2",
 	"displayName": "@rainbow/s2",
 	"icon": "media/s2-256x256.png",
-	"description": "Custom editor for @rainbow configuration files.",
+	"description": "Editors for @rainbow configuration files.",
 	"publisher": "InsureMO",
 	"version": "0.1.0",
 	"repository": {

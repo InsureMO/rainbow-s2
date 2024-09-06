@@ -168,6 +168,17 @@ const createGlobalStyles = () => {
                 --d9-playground-ww-toolbar-filter: drop-shadow(2px 4px 6px rgb(255, 255, 255));
                 --d9-playground-ww-toolbar-color: rgba(255, 255, 255, 0.6);
                 --o23-playground-dialog-closer-icon-color: var(--d9-font-color);
+
+                #root > div[data-w=d9-page] {
+                    > div[data-w=o23-playground] {
+                        div[data-w=o23-playground-edit-dialog-closer] {
+                            background: var(--d9-background-color);
+                            padding: 8px 16px 0 32px;
+                            right: -16px;
+                            margin-top: -8px;
+                        }
+                    }
+                }
             }
         }
 
@@ -195,15 +206,6 @@ const createGlobalStyles = () => {
             > div[data-w=d9-playground] {
                 div[data-w=d9-playground-editor-panel] > div.cm-editor > div.cm-scroller {
                     border-right: var(--d9-border);
-                }
-            }
-
-            > div[data-w=o23-playground] {
-                div[data-w=o23-playground-edit-dialog-closer] {
-                    background: var(--d9-background-color);
-                    padding: 8px 16px 0 32px;
-                    right: -16px;
-                    margin-top: -8px;
                 }
             }
         }

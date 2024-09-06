@@ -4,22 +4,30 @@ Editors for [@rainbow/d9](https://github.com/InsureMO/rainbow-d9) and [@rainbow/
 
 ## Features
 
-[//]: # (Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.)
+The editors for [@rainbow-d9](https://github.com/InsureMO/rainbow-d9) and [@rainbow-o23](https://github.com/InsureMO/rainbow-o23),
 
-[//]: # ()
-[//]: # (For example if there is an image subfolder under your extension project workspace:)
+- D9 Editor
+  ![d9-dark](./media/d9-dark.png)
+- O23 Editor
+  ![o23-dark](./media/o23-dark.png)
+  ![o23-light](./media/o23-light.png)
 
-[//]: # ()
-[//]: # (\!\[feature X\]\&#40;images/feature-x.png\&#41;)
+Also provided the file icons, which need to be activated manually,
 
-[//]: # ()
-[//]: # (> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.)
+- Activate by extension page:
+  ![activate-by-extension-page](./media/file-icons-from-extension.png)
+- Activate by menu:
+  ![activate-by-menu](./media/file-icons-from-menu.png)
+- Activate by command palette:
+  ![activate-by-command-palette](./media/file-icons-from-command.png)
 
-## Requirements
+> @Rainbow file icons theme is based on Seti.
+
+[//]: # (## Requirements)
 
 [//]: # (If you have any requirements or dependencies, add a section describing those and how to install and configure them.)
 
-## Extension Settings
+[//]: # (## Extension Settings)
 
 [//]: # (Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.)
 
@@ -34,11 +42,11 @@ Editors for [@rainbow/d9](https://github.com/InsureMO/rainbow-d9) and [@rainbow/
 
 [//]: # (* `myExtension.thing`: Set to `blah` to do something.)
 
-## Known Issues
+[//]: # (## Known Issues)
 
 [//]: # (Calling out known issues can help limit users opening duplicate issues against your extension.)
 
-## Release Notes
+[//]: # (## Release Notes)
 
 [//]: # (Users appreciate release notes as you update your extension.)
 
