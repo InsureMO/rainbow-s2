@@ -125,7 +125,6 @@ const createThemeStyles = () => {
 
 const createGlobalStyles = () => {
 	const {n2Light, n2Dark, d9Light, d9Dark, o23Light, o23Dark} = createThemeStyles();
-	console.log(createThemeStyles());
 	// noinspection CssUnresolvedCustomProperty,CssNoGenericFontName,CssUnusedSymbol
 	return createGlobalStyle`
         *, *:before, *:after {
@@ -143,6 +142,7 @@ const createGlobalStyles = () => {
         }
 
         body {
+            --s2-top-border: 1px solid rgba(128, 128, 128, 0.35);
             ${n2Light}
             ${d9Light}
             ${o23Light}
@@ -162,6 +162,12 @@ const createGlobalStyles = () => {
                 ${n2Dark}
                 ${d9Dark}
                 ${o23Dark}
+                --d9-playground-widget-declaration-splitter-color: #5f5f5f;
+                --d9-playground-widget-declaration-attr-name-color: #569cd6;
+                --d9-playground-ww-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.4);
+                --d9-playground-ww-toolbar-filter: drop-shadow(2px 4px 6px rgb(255, 255, 255));
+                --d9-playground-ww-toolbar-color: rgba(255, 255, 255, 0.6);
+                --o23-playground-dialog-closer-icon-color: var(--d9-font-color);
             }
         }
 
@@ -174,7 +180,7 @@ const createGlobalStyles = () => {
 
             > div[data-w=d9-playground], > div[data-w=o23-playground] {
                 border: 0;
-                border-top: 1px solid rgba(214, 214, 214, 1);
+                border-top: var(--s2-top-border);
                 border-radius: 0;
                 height: 100%;
                 min-height: 100%;
@@ -187,8 +193,17 @@ const createGlobalStyles = () => {
             }
 
             > div[data-w=d9-playground] {
-                div.cm-editor > div.cm-scroller {
-                    border-right: 1px solid rgba(214, 214, 214, 1);
+                div[data-w=d9-playground-editor-panel] > div.cm-editor > div.cm-scroller {
+                    border-right: var(--d9-border);
+                }
+            }
+
+            > div[data-w=o23-playground] {
+                div[data-w=o23-playground-edit-dialog-closer] {
+                    background: var(--d9-background-color);
+                    padding: 8px 16px 0 32px;
+                    right: -16px;
+                    margin-top: -8px;
                 }
             }
         }
