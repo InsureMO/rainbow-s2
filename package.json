@@ -36,7 +36,7 @@
 		"iconThemes": [
 			{
 				"id": "rainbow",
-				"label": "@rainbow",
+				"label": "@rainbow File Icon Theme, based on Seti",
 				"path": "./fileicons/rainbow-icon-theme.json"
 			}
 		]

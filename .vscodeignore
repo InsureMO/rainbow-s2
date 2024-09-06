@@ -12,6 +12,7 @@ vsc-extension-quickstart.md
 **/*.map
 **/*.ts
 **/.vscode-test.*
+.idea/**
 
 webview/src/**
 webview/node_modules/**

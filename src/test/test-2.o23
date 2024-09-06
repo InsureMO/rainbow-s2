@@ -1,0 +1,194 @@
+code: ApiTest
+type: pipeline
+enabled: false
+route: /api/test
+method: get
+headers: true
+path-params:
+  - id
+  - name
+expose-headers:
+  x-a: aaa
+  x-b: bbb
+
+steps:
+  - name: Conditional
+    use: conditional
+    check: $factor.id != null
+    steps:
+      - name: "Check Pass #1"
+        use: snippet
+      - name: "Check Pass #2"
+        use: snippet
+    otherwise:
+      - name: "Otherwise #1"
+        use: snippet
+    $diagram:
+      $foldSubSteps: true
+  - name: Routes
+    use: routes
+    routes:
+      - check: $factor.type == 'T1'
+        steps:
+          - name: "Do for T1 #1"
+            use: snippet
+          - name: "Do for T1 #2"
+            use: snippet
+      - check: $factor.type == 'T2'
+        steps:
+          - name: "Do for T2 #1"
+            use: snippet
+    otherwise:
+      - name: Either T1 or T2
+        use: snippet
+    $diagram:
+      $foldSubSteps: true
+  - name: Auth
+    use: sets
+    steps:
+      - name: Authenticate
+        use: ref-pipeline
+        ref: auth-by-token
+      - name: Authorize
+        use: ref-step
+        ref: ask-permissions
+    $diagram:
+      $foldSubSteps: true
+  - name: Prepare Data
+    use: parallel
+    steps:
+      - name: Prepare Codes
+        use: http-fetch
+        system: CodeService
+        endpoint: askProductCodes
+        responseErrorHandles:
+          400: |-
+            $.$logger.log('HTTP status 400 detected.', options.$factor, 'test-log');
+            $.$errors.uncatchable({code: '000', reason: ''});
+      - name: Prepare Codes 2
+        use: http-get
+        system: CodeService
+        endpoint: askProductCategoryCodes
+      - name: Prepare Codes 3
+        use: http-post
+        system: AuthService
+        endpoint: checkToken
+    $diagram:
+      $foldSubSteps: true
+  - name: TypeORM Trans T1
+    use: typeorm-transactional
+    datasource: db-data
+    transaction: t1
+    steps:
+      - name: By snippet
+        use: typeorm-snippet
+        datasource: db-data
+        transaction: t1
+      - name: Bulk Save
+        use: typeorm-bulk-save
+        datasource: db-data
+        transaction: t1
+      - name: TypeORM Trans T2
+        use: typeorm-transactional
+        datasource: db-data
+        transaction: t2
+        steps:
+          - name: Save
+            use: typeorm-save
+            datasource: db-data
+            transaction: t2
+      - name: Load Many
+        use: typeorm-load-many
+        datasource: db-data
+        transaction: t1
+      - name: Load One
+        use: typeorm-load-one
+        datasource: db-data
+        transaction: t1
+        sql: SELECT T.ID AS id, T.NAME AS name FROM TABLE T WHERE T.ID = $id AND T.ENABLED = $enabled.@bool
+    $diagram:
+      $foldSubSteps: true
+  - name: Do validation
+    use: sets
+    steps:
+      - name: Validate name
+        use: sets
+        steps:
+          - name: Get first name
+            use: get-property
+            property: firstName
+            merge: firstName
+          - name: Validate first name
+            from-input: return $factor.firstName;
+            use: snippet
+          - name: Validate last name
+            use: snippet
+      - name: Validate age
+        use: snippet
+      - name: Validate country
+        use: snippet
+      - name: Validate address
+        use: sets
+        steps:
+          - name: "Validate address #1"
+            use: snippet
+      - name: Validate job
+        use: sets
+        steps:
+          - name: Validate job occupation
+            use: snippet
+    error-handles:
+      catchable:
+        - name: Catch catchable error
+          use: sets
+          steps:
+            - name: "Catch catchable #1"
+              use: snippet
+      uncatchable:
+        - name: Catch uncatchable error
+          use: snippet
+      exposed:
+        - name: Catch exposed error
+          use: snippet
+      any:
+        - name: Catch any error
+          use: snippet
+    to-output: $result
+    $diagram:
+      $foldSubSteps: true
+      $foldCatchable: true
+      $foldUncatchable: true
+      $foldExposed: true
+      $foldAny: true
+  - name: Clean Data
+    use: sets
+    steps:
+      - name: Remove temporary
+        use: del-properties
+        property: $temp, $temporary
+      - name: Remove cache
+        use: del-property
+        property: $cache
+    $diagram:
+      $foldSubSteps: true
+  - name: Create a sequence
+    use: snowflake
+    merge: snowflakeId
+  - name: Log data
+    use: async-sets
+    steps:
+      - name: Write log
+        use: snippet
+        snippet: |-
+          $.$logger.log('a');
+          $.$logger.log('b');
+      - name: Write validation results to log
+        use: each
+        from-input: return $factor.results;
+        item-name: result
+        steps:
+          - name: Write validation result to log
+            use: snippet
+            snippet: $.$logger.log('Invalid thing detected.', $factor.result, 'test-log');
+    $diagram:
+      $foldSubSteps: true
