@@ -44,22 +44,23 @@ export const useEditorContent = <S extends EditorContentState>(options: UseEdito
 	const {on, off, fire} = useAppEventBus();
 	useEffect(() => {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const onContentChangeByDocument = (content?: string, assistantContent?: any) => {
+		const onContent = (label: string) => (content?: string, assistantContent?: any) => {
 			setState(state => {
 				const newState = {...state, initialized: true, editModel: {config: content ?? ''}};
 				// handle assistant content
 				const assistant = deserializeAssistant(assistantContent);
-				console.groupCollapsed('%cHandle[content changed from editor provider].', 'color:red;font-weight:bold;');
+				console.groupCollapsed(`%c${label}`, 'color:red;font-weight:bold;');
 				console.table({Content: content, Assistant: assistant});
 				console.groupEnd();
 				newState.updateAssistant(newState, assistant);
 				return newState;
 			});
 		};
+		const onContentChangeByDocument = onContent('Handle[Content changed from editor provider].');
 		on(AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, onContentChangeByDocument);
 		if (!state.initialized) {
 			console.log(`%cFire[Ask content].`, 'color:red;font-weight:bold;');
-			fire(AppEventTypes.ASK_CONTENT, onContentChangeByDocument);
+			fire(AppEventTypes.ASK_CONTENT, onContent('Callback[Ask content].'));
 		}
 		return () => {
 			off(AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, onContentChangeByDocument);

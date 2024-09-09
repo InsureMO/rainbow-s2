@@ -28,6 +28,9 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 		// webviewPanel.iconPath = vscode.Uri.joinPath(this.context.extensionUri, 'media', 'd9.svg');
 		webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
 
+		const cache = {
+			assistant: await this.getAssistantForDocument(document)
+		};
 		// Hook up event handlers so that we can synchronize the webview with the text document.
 		// The text document acts as our model, so we have to sync change in the document to our
 		// editor and sync changes in the editor back to the document.
@@ -35,16 +38,16 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 		// editors (this happens for example when you split a custom editor)
 		const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument(e => {
 			// step x, any change on document triggers this, do update anyway
-			if (e.document.uri.toString() === document.uri.toString()
-				|| e.document.uri.toString() === this.getAssistantDocUri(document).toString()) {
+			if (e.document.uri.toString() === document.uri.toString()) {
 				(async () => {
-					const assistant = await this.getAssistantForDocument(document);
 					webviewPanel.webview.postMessage({
 						type: 'update-content',
 						fileType: this.getFileType(document), content: document.getText(),
-						assistantContent: this.serializeAssistant(assistant)
+						assistantContent: this.serializeAssistant(cache.assistant)
 					});
 				})();
+			} else if (e.document.uri.toString() === this.getAssistantDocUri(document).toString()) {
+				// TODO
 			}
 		});
 		const changeActiveColorThemeSubscription = vscode.window.onDidChangeActiveColorTheme(() => {
@@ -66,11 +69,10 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 				case 'ask-content': {
 					// handle the asking content for initializing the editor
 					(async () => {
-						const assistant = await this.getAssistantForDocument(document);
 						webviewPanel.webview.postMessage({
 							type: 'reply-content',
 							fileType: this.getFileType(document), content: document.getText(),
-							assistantContent: this.serializeAssistant(assistant)
+							assistantContent: this.serializeAssistant(cache.assistant)
 						});
 					})();
 					return;
@@ -97,7 +99,7 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 	private async getAssistantForDocument(document: vscode.TextDocument): Promise<any | undefined> {
 		try {
 			const assistantDocUri = this.getAssistantDocUri(document);
-			const assistantDoc = await vscode.workspace.openTextDocument(assistantDocUri);
+			// const assistantDoc = await vscode.workspace.openTextDocument(assistantDocUri);
 			// const text = assistantDoc.getText();
 			const scripts = await import(assistantDocUri.fsPath);
 			// console.log(scripts);

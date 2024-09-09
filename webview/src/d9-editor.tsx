@@ -12,6 +12,7 @@ const markdown = `# Page::D9 VSCode Editor
 - Playground::::config
   - useCharts, !maxMode, !zenMode
   - externalDefs: @ext.playground.externalDefs
+  - mockData: @ext.playground.mockData
   - externalDefsTypes: @ext.playground.externalDefsTypes
   - valueChanged: @ext.playground.valueChanged
   - theme: @ext.playground.decorator.theme
@@ -85,6 +86,7 @@ export const D9VSCodeEditor = () => {
 		return <Fragment/>;
 	}
 
+	console.log('mock data', state.externalDefs.playground.mockData);
 	return <GlobalRoot>
 		<BridgeEventBusProvider>
 			<ThemeHandler theme={themeRef}/>
