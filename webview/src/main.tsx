@@ -30,8 +30,9 @@ const onMessage = (event: MessageEvent<IncomingMessage | InternalMessage>) => {
 			const onContentChanged = async (content: string) => {
 				// notify text provider that content changed
 				vscode.postMessage<ContentChangedMessage>({type: OutgoingMessageType.CONTENT_CHANGED, content});
-				console.log(`%cHandle[content changed]%c, with [content=${data.content}], then %cSend[Content changed to editor provider].`,
-					'color:red;font-weight:bold;', '', 'color:red;font-weight:bold;');
+				console.groupCollapsed('%cHandle[content changed from editor], and send[Content changed to editor provider].', 'color:red;font-weight:bold;');
+				console.table({Content: content});
+				console.groupEnd();
 			};
 			createRoot(document.getElementById('root')!).render(<StrictMode>
 				<App onContentChanged={onContentChanged}/>
@@ -41,23 +42,25 @@ const onMessage = (event: MessageEvent<IncomingMessage | InternalMessage>) => {
 		case IncomingMessageType.UPDATE_CONTENT: {
 			// update editor content when existing
 			// update content passively; compare with existing content and then decide whether a page repaint is needed.
-			const {fileType, content} = data as UpdateContentMessage;
+			const {fileType, content, assistantContent} = data as UpdateContentMessage;
 			window.postMessage({
-				type: InternalMessageType.TRY_UPDATE_CONTENT, fileType, content
+				type: InternalMessageType.TRY_UPDATE_CONTENT, fileType, content, assistantContent
 			} as TryUpdateContentMessage);
-			console.log(`%cHandle[Update content from editor provider]%c, with [content=${data.content}], then %cSend[Try update content to editor].`,
-				'color:red;font-weight:bold;', '', 'color:red;font-weight:bold;');
+			console.groupCollapsed('%cHandle[Update content from editor provider], and send[Try update content to editor].', 'color:red;font-weight:bold;');
+			console.table({Content: content, Assistant: assistantContent});
+			console.groupEnd();
 			break;
 		}
 		case IncomingMessageType.REPLY_CONTENT: {
 			// get replied content, and do initializing the editor
 			// request content by 'ask-content' message and directly repaint the page
-			const {fileType, content} = data as ReplyContentMessage;
+			const {fileType, content, assistantContent} = data as ReplyContentMessage;
 			window.postMessage({
-				type: InternalMessageType.REPLY_INIT_CONTENT, fileType, content
+				type: InternalMessageType.REPLY_INIT_CONTENT, fileType, content, assistantContent
 			} as ReplyInitContentMessage);
-			console.log(`%cHandle[Reply content from editor provider]%c, with [fileType=${fileType}, content=${data.content}], then %cSend[Reply init content to editor].`,
-				'color:red;font-weight:bold;', '', 'color:red;font-weight:bold;');
+			console.groupCollapsed('%cHandle[Reply content from editor provider], and send[Reply init content to editor].', 'color:red;font-weight:bold;');
+			console.table({'File Type': fileType, Content: content, Assistant: assistantContent});
+			console.groupEnd();
 			break;
 		}
 		case InternalMessageType.ASK_INIT_CONTENT: {
@@ -66,7 +69,7 @@ const onMessage = (event: MessageEvent<IncomingMessage | InternalMessage>) => {
 				'color:red;font-weight:bold;', '', 'color:red;font-weight:bold;');
 			break;
 		}
-		case IncomingMessageType.UPDATE_THEME:
+		case IncomingMessageType.UPDATE_THEME: {
 			const theme = (() => {
 				const classList = document.body.classList;
 				switch (true) {
@@ -85,6 +88,7 @@ const onMessage = (event: MessageEvent<IncomingMessage | InternalMessage>) => {
 			window.postMessage({type: InternalMessageType.TRY_UPDATE_THEME, theme} as TryUpdateThemeMessage);
 			console.log(`%cHandle[Update theme from editor].`, 'color:red;font-weight:bold;');
 			break;
+		}
 	}
 };
 window.addEventListener('message', onMessage);

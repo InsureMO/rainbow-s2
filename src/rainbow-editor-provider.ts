@@ -1,5 +1,9 @@
+import * as path from 'path';
 import * as vscode from 'vscode';
 import {getNonce} from './utils';
+
+const AsyncFunction = (async () => {
+}).constructor;
 
 export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 	public static register(context: vscode.ExtensionContext): vscode.Disposable {
@@ -31,11 +35,16 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 		// editors (this happens for example when you split a custom editor)
 		const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument(e => {
 			// step x, any change on document triggers this, do update anyway
-			if (e.document.uri.toString() === document.uri.toString()) {
-				// console.log(`update view with text[${document.getText()}].`);
-				webviewPanel.webview.postMessage({
-					type: 'update-content', fileType: this.getFileType(document), content: document.getText()
-				});
+			if (e.document.uri.toString() === document.uri.toString()
+				|| e.document.uri.toString() === this.getAssistantDocUri(document).toString()) {
+				(async () => {
+					const assistant = await this.getAssistantForDocument(document);
+					webviewPanel.webview.postMessage({
+						type: 'update-content',
+						fileType: this.getFileType(document), content: document.getText(),
+						assistantContent: this.serializeAssistant(assistant)
+					});
+				})();
 			}
 		});
 		const changeActiveColorThemeSubscription = vscode.window.onDidChangeActiveColorTheme(() => {
@@ -56,9 +65,14 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 				}
 				case 'ask-content': {
 					// handle the asking content for initializing the editor
-					webviewPanel.webview.postMessage({
-						type: 'reply-content', fileType: this.getFileType(document), content: document.getText()
-					});
+					(async () => {
+						const assistant = await this.getAssistantForDocument(document);
+						webviewPanel.webview.postMessage({
+							type: 'reply-content',
+							fileType: this.getFileType(document), content: document.getText(),
+							assistantContent: this.serializeAssistant(assistant)
+						});
+					})();
 					return;
 				}
 				case 'content-changed': {
@@ -68,6 +82,52 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 				}
 			}
 		});
+	}
+
+	private getAssistantDocUri(document: vscode.TextDocument): vscode.Uri {
+		const docUri = document.uri;
+		const filename = path.basename(docUri.path);
+		const dir = vscode.Uri.from({
+			scheme: docUri.scheme, authority: docUri.authority, path: path.dirname(docUri.path),
+			query: docUri.query, fragment: docUri.fragment
+		});
+		return vscode.Uri.joinPath(dir, `${filename}.mjs`);
+	}
+
+	private async getAssistantForDocument(document: vscode.TextDocument): Promise<any | undefined> {
+		try {
+			const assistantDocUri = this.getAssistantDocUri(document);
+			const assistantDoc = await vscode.workspace.openTextDocument(assistantDocUri);
+			// const text = assistantDoc.getText();
+			const scripts = await import(assistantDocUri.fsPath);
+			// console.log(scripts);
+			return scripts.default;
+		} catch (e) {
+			console.error(e);
+			return (void 0);
+		}
+	}
+
+	private serializeAssistant(assistant?: any): string | undefined {
+		// eslint-disable-next-line eqeqeq
+		if (assistant == null) {
+			return (void 0);
+		} else {
+			return JSON.stringify(assistant, (_: string, value: any) => {
+				// eslint-disable-next-line eqeqeq
+				if (value == null) {
+					return null;
+				} else if (typeof value === 'function') {
+					if (value instanceof AsyncFunction) {
+						return {$func: value.toString(), $async: true};
+					} else {
+						return {$func: value.toString(), $async: false};
+					}
+				} else {
+					return value;
+				}
+			}, '  ');
+		}
 	}
 
 	private getHtmlForWebview(webview: vscode.Webview): string {

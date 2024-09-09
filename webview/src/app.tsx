@@ -16,6 +16,7 @@ import {
 interface ContentState {
 	fileType?: FileType;
 	content?: string;
+	assistantContent?: string;
 }
 
 const ContentHolder = (props: AppProps) => {
@@ -28,30 +29,39 @@ const ContentHolder = (props: AppProps) => {
 			const {data} = event;
 			switch (data.type) {
 				case InternalMessageType.TRY_UPDATE_CONTENT: {
-					const {fileType: newFileType, content: newContent} = data as TryUpdateContentMessage;
+					const {
+						fileType: newFileType, content: newContent, assistantContent: newAssistantContent
+					} = data as TryUpdateContentMessage;
 					if (newFileType !== state.fileType) {
 						// fire event to app, file type changed, switching editor
-						setState(state => ({...state, fileType: newFileType, content: newContent}));
-						fire(AppEventTypes.FILE_TYPE_CHANGED, newFileType, newContent);
+						setState(state => ({
+							...state, fileType: newFileType, content: newContent, assistantContent: newAssistantContent
+						}));
+						fire(AppEventTypes.FILE_TYPE_CHANGED, newFileType, newContent, newAssistantContent);
 					} else if (newContent !== state.content) {
 						// fire event to editor, content changed
-						setState(state => ({...state, content: newContent}));
-						fire(AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, newContent);
+						setState(state => ({...state, content: newContent, assistantContent: newAssistantContent}));
+						fire(AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, newContent, newAssistantContent);
+					} else if (newAssistantContent !== state.assistantContent) {
+						// fire event to editor, content changed
+						setState(state => ({...state, content: newContent, assistantContent: newAssistantContent}));
+						fire(AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, newContent, newAssistantContent);
 					} else {
 						// no change, do nothing
 					}
 				}
 			}
 		};
-		const onInitContent = (fileType: FileType, content?: string) => {
+		const onInitContent = (fileType: FileType, content?: string, assistantContent?: string) => {
 			// handle event init content event
-			console.log(`%cOn[Init content]%c, with [fileType=${fileType}, content=${content}], then %cFire[Content initialized].`,
-				'color:red;font-weight:bold;', '', 'color:red;font-weight:bold;');
-			setState(state => ({...state, fileType, content: content ?? ''}));
+			console.groupCollapsed('%cOn[Init content].', 'color:red;font-weight:bold;');
+			console.table({'File type': fileType, 'Content': content, 'Assistant': assistantContent});
+			console.groupEnd();
+			setState(state => ({...state, fileType, content: content ?? '', assistantContent}));
 			fire(AppEventTypes.CONTENT_INITIALIZED, fileType);
 		};
-		const onAskContent = (onContent: (content?: string) => void) => {
-			onContent(state.content ?? '');
+		const onAskContent = (onContent: (content?: string, assistantContent?: string) => void) => {
+			onContent(state.content ?? '', state.assistantContent);
 		};
 		const onContentChangedByEditor = async (content?: string) => {
 			// handle event content changed event from editor
@@ -68,7 +78,7 @@ const ContentHolder = (props: AppProps) => {
 			off(AppEventTypes.ASK_CONTENT, onAskContent);
 			off(AppEventTypes.CONTENT_CHANGED_BY_EDITOR, onContentChangedByEditor);
 		};
-	}, [on, off, fire, state.fileType, state.content, onContentChanged]);
+	}, [on, off, fire, state.fileType, state.content, state.assistantContent, onContentChanged]);
 
 	return <Fragment/>;
 };
@@ -122,10 +132,11 @@ const EditorWrapper = (props: AppProps) => {
 			const {data} = event;
 			switch (data.type) {
 				case InternalMessageType.REPLY_INIT_CONTENT: {
-					const {fileType, content} = data as ReplyInitContentMessage;
-					console.log(`%cHandle[Reply init content from app]%c, with [fileType=${fileType}, content=${content}], then %cFire[Init content].`,
-						'color:red;font-weight:bold;', '', 'color:red;font-weight:bold;');
-					fire(AppEventTypes.INIT_CONTENT, fileType, content);
+					const {fileType, content, assistantContent} = data as ReplyInitContentMessage;
+					console.groupCollapsed('%cHandle[Reply init content from app].', 'color:red;font-weight:bold;');
+					console.table({'File type': fileType, Content: content, Assistant: assistantContent});
+					console.groupEnd();
+					fire(AppEventTypes.INIT_CONTENT, fileType, content, assistantContent);
 					break;
 				}
 				case InternalMessageType.TRY_UPDATE_THEME: {

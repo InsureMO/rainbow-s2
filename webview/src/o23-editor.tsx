@@ -26,8 +26,20 @@ interface O23VSCodeEditorState extends EditorContentState {
 	/** markdown of editor */
 	markdown: string;
 	/** external defs for playground */
-	externalDefs: object;
+	externalDefs: {
+		playground: {
+			createDefaultStep?: PlaygroundModuleAssistant['createDefaultStep'],
+			httpSystems?: PlaygroundModuleAssistant['askSystemsForHttp'],
+			typeOrmDatasources?: PlaygroundModuleAssistant['askTypeOrmDatasources'],
+			refPipelines?: PlaygroundModuleAssistant['askRefPipelines'],
+			refSteps?: PlaygroundModuleAssistant['askRefSteps'],
+			valueChanged: <NV extends PropValue>(options: ValueChangedOptions<NV>) => Promise<void>,
+			decorator: PlaygroundDecorator;
+		}
+	};
 }
+
+export type O23AssistantContent = PlaygroundModuleAssistant;
 
 export const O23VSCodeEditor = () => {
 	const {fire} = useAppEventBus();
@@ -37,42 +49,28 @@ export const O23VSCodeEditor = () => {
 		// noinspection JSUnusedGlobalSymbols
 		return {
 			initialized: false,
+			updateAssistant: (state: O23VSCodeEditorState, assistantContent?: O23AssistantContent) => {
+				try {
+					const {
+						askSystemsForHttp, askRefPipelines, askRefSteps, askTypeOrmDatasources
+					} = (assistantContent ?? {});
+					const playground = state.externalDefs.playground;
+					playground.httpSystems = askSystemsForHttp ?? (() => []);
+					playground.typeOrmDatasources = askTypeOrmDatasources ?? (() => []);
+					playground.refPipelines = askRefPipelines ?? (() => []);
+					playground.refSteps = askRefSteps ?? (() => []);
+				} catch {
+					// do nothing
+				}
+			},
 			def, markdown,
 			editModel: {config: ''},
 			externalDefs: {
 				playground: {
-					httpSystems: (() => {
-						return [
-							{
-								code: 'CodeService', name: 'Codes Service', endpoints: [
-									{code: 'askCodes', name: 'Ask Codes'}
-								]
-							},
-							{
-								code: 'CacheService', name: 'Cache Service', endpoints: [
-									{code: 'askCache', name: 'Ask Cache'}
-								]
-							}
-						];
-					}) as PlaygroundModuleAssistant['askSystemsForHttp'],
-					typeOrmDatasources: (() => {
-						return [
-							{code: 'db-auth', name: 'Account DB'},
-							{code: 'db-data', name: 'Business Data DB'}
-						];
-					}) as PlaygroundModuleAssistant['askTypeOrmDatasources'],
-					refPipelines: (() => {
-						return [
-							{code: 'auth-by-token', name: 'Authenticate by token'},
-							{code: 'auth-by-account', name: 'Authenticate by account'}
-						];
-					}) as PlaygroundModuleAssistant['askRefPipelines'],
-					refSteps: (() => {
-						return [
-							{code: 'ask-roles', name: 'Ask user roles'},
-							{code: 'ask-permissions', name: 'Ask user permissions'}
-						];
-					}) as PlaygroundModuleAssistant['askRefSteps'],
+					httpSystems: (() => []) as PlaygroundModuleAssistant['askSystemsForHttp'],
+					typeOrmDatasources: (() => []) as PlaygroundModuleAssistant['askTypeOrmDatasources'],
+					refPipelines: (() => []) as PlaygroundModuleAssistant['askRefPipelines'],
+					refSteps: (() => []) as PlaygroundModuleAssistant['askRefSteps'],
 					valueChanged: async <NV extends PropValue>(options: ValueChangedOptions<NV>) => {
 						// fire event to content holder to change content
 						fire(AppEventTypes.CONTENT_CHANGED_BY_EDITOR, (options.newValue ?? '') as string);
@@ -80,7 +78,7 @@ export const O23VSCodeEditor = () => {
 					decorator: {theme: theme(themeRef)} as PlaygroundDecorator
 				}
 			}
-		};
+		} as O23VSCodeEditorState;
 	});
 	useEditorContent({state, setState});
 

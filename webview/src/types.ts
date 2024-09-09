@@ -10,7 +10,6 @@ export enum IncomingMessageType {
 // message from editor provider to app
 export interface IncomingMessage {
 	type: IncomingMessageType;
-	content?: string;
 }
 
 // noinspection JSUnusedGlobalSymbols
@@ -21,11 +20,15 @@ export interface InitMessage extends IncomingMessage {
 export interface UpdateContentMessage extends IncomingMessage {
 	type: IncomingMessageType.UPDATE_CONTENT;
 	fileType: FileType;
+	content?: string;
+	assistantContent?: string;
 }
 
 export interface ReplyContentMessage extends IncomingMessage {
 	type: IncomingMessageType.REPLY_CONTENT;
 	fileType: FileType;
+	content?: string;
+	assistantContent?: string;
 }
 
 // noinspection JSUnusedGlobalSymbols
@@ -73,6 +76,7 @@ export interface TryUpdateContentMessage extends InternalMessage {
 	type: InternalMessageType.TRY_UPDATE_CONTENT;
 	fileType: FileType;
 	content?: string;
+	assistantContent?: string;
 }
 
 // noinspection JSUnusedGlobalSymbols
@@ -84,6 +88,7 @@ export interface ReplyInitContentMessage extends InternalMessage {
 	type: InternalMessageType.REPLY_INIT_CONTENT;
 	fileType: FileType;
 	content?: string;
+	assistantContent?: string;
 }
 
 export enum ThemeKind {

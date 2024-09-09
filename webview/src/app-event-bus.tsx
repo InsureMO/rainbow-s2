@@ -14,21 +14,33 @@ export enum AppEventTypes {
 }
 
 export interface PlaygroundEventBus {
-	fire(type: AppEventTypes.INIT_CONTENT, fileType: FileType, content?: string): this;
-	on(type: AppEventTypes.INIT_CONTENT, listener: (fileType: FileType, content?: string) => void): this;
-	off(type: AppEventTypes.INIT_CONTENT, listener: (fileType: FileType, content?: string) => void): this;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	fire(type: AppEventTypes.INIT_CONTENT, fileType: FileType, content?: string, assistantContent?: any): this;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	on(type: AppEventTypes.INIT_CONTENT, listener: (fileType: FileType, content?: string, assistantContent?: any) => void): this;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	off(type: AppEventTypes.INIT_CONTENT, listener: (fileType: FileType, content?: string, assistantContent?: any) => void): this;
 	fire(type: AppEventTypes.CONTENT_INITIALIZED, fileType: FileType): this;
 	on(type: AppEventTypes.CONTENT_INITIALIZED, listener: (fileType: FileType) => void): this;
 	off(type: AppEventTypes.CONTENT_INITIALIZED, listener: (fileType: FileType) => void): this;
-	fire(type: AppEventTypes.ASK_CONTENT, onContent: (content?: string) => void): this;
-	on(type: AppEventTypes.ASK_CONTENT, listener: (onContent: (content?: string) => void) => void): this;
-	off(type: AppEventTypes.ASK_CONTENT, listener: (onContent: (content?: string) => void) => void): this;
-	fire(type: AppEventTypes.FILE_TYPE_CHANGED, fileType: FileType, content?: string): this;
-	on(type: AppEventTypes.FILE_TYPE_CHANGED, listener: (fileType: FileType, content?: string) => void): this;
-	off(type: AppEventTypes.FILE_TYPE_CHANGED, listener: (fileType: FileType, content?: string) => void): this;
-	fire(type: AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, content?: string): this;
-	on(type: AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, listener: (content?: string) => void): this;
-	off(type: AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, listener: (content?: string) => void): this;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	fire(type: AppEventTypes.ASK_CONTENT, onContent: (content?: string, assistantContent?: any) => void): this;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	on(type: AppEventTypes.ASK_CONTENT, listener: (onContent: (content?: string, assistantContent?: any) => void) => void): this;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	off(type: AppEventTypes.ASK_CONTENT, listener: (onContent: (content?: string, assistantContent?: any) => void) => void): this;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	fire(type: AppEventTypes.FILE_TYPE_CHANGED, fileType: FileType, content?: string, assistantContent?: any): this;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	on(type: AppEventTypes.FILE_TYPE_CHANGED, listener: (fileType: FileType, content?: string, assistantContent?: any) => void): this;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	off(type: AppEventTypes.FILE_TYPE_CHANGED, listener: (fileType: FileType, content?: string, assistantContent?: any) => void): this;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	fire(type: AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, content?: string, assistantContent?: any): this;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	on(type: AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, listener: (content?: string, assistantContent?: any) => void): this;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	off(type: AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, listener: (content?: string, assistantContent?: any) => void): this;
 	fire(type: AppEventTypes.CONTENT_CHANGED_BY_EDITOR, content?: string): this;
 	on(type: AppEventTypes.CONTENT_CHANGED_BY_EDITOR, listener: (content?: string) => void): this;
 	off(type: AppEventTypes.CONTENT_CHANGED_BY_EDITOR, listener: (content?: string) => void): this;
