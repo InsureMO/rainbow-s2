@@ -2,9 +2,6 @@ import * as path from 'path';
 import * as vscode from 'vscode';
 import {getNonce} from './utils';
 
-const AsyncFunction = (async () => {
-}).constructor;
-
 export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 	public static register(context: vscode.ExtensionContext): vscode.Disposable {
 		const provider = new RainbowEditorProvider(context);
@@ -28,10 +25,7 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 		// webviewPanel.iconPath = vscode.Uri.joinPath(this.context.extensionUri, 'media', 'd9.svg');
 		webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
 
-		const cache = {
-			assistantText: await this.getAssistantText(document),
-			assistantContent: this.serializeAssistant(await this.getAssistantForDocument(document))
-		};
+		const cache = {assistantSourceCode: await this.getAssistantSourceCode(document)};
 		// Hook up event handlers so that we can synchronize the webview with the text document.
 		// The text document acts as our model, so we have to sync change in the document to our
 		// editor and sync changes in the editor back to the document.
@@ -43,17 +37,16 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 				webviewPanel.webview.postMessage({
 					type: 'update-content',
 					fileType: this.getFileType(document), content: document.getText(),
-					assistantContent: cache.assistantContent
+					assistantContent: cache.assistantSourceCode
 				});
 			} else if (!e.document.isDirty && e.document.uri.toString() === this.getAssistantDocUri(document).toString()) {
-				const text = await this.getAssistantText(document);
-				if (text !== cache.assistantText) {
-					cache.assistantText = text;
-					cache.assistantContent = this.serializeAssistant(await this.getAssistantForDocument(document));
+				const text = await this.getAssistantSourceCode(document);
+				if (text !== cache.assistantSourceCode) {
+					cache.assistantSourceCode = text;
 					webviewPanel.webview.postMessage({
 						type: 'update-content',
 						fileType: this.getFileType(document), content: document.getText(),
-						assistantContent: cache.assistantContent
+						assistantContent: cache.assistantSourceCode
 					});
 				}
 			}
@@ -68,7 +61,7 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 			changeActiveColorThemeSubscription.dispose();
 		});
 		// Receive message from the webview.
-		webviewPanel.webview.onDidReceiveMessage(e => {
+		webviewPanel.webview.onDidReceiveMessage(async e => {
 			switch (e.type) {
 				case 'ask-init-permit': {
 					webviewPanel.webview.postMessage({type: 'init-content'});
@@ -76,46 +69,86 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 				}
 				case 'ask-content': {
 					// handle the asking content for initializing the editor
-					(async () => {
-						// re-retrieve the assistant content, compare with cache
-						const text = await this.getAssistantText(document);
-						if (text !== cache.assistantText) {
-							cache.assistantText = text;
-							cache.assistantContent = this.serializeAssistant(await this.getAssistantForDocument(document));
-						}
-						webviewPanel.webview.postMessage({
-							type: 'reply-content',
-							fileType: this.getFileType(document), content: document.getText(),
-							assistantContent: cache.assistantContent
-						});
-					})();
+					// re-retrieve the assistant content, compare with cache
+					const text = await this.getAssistantSourceCode(document);
+					if (text !== cache.assistantSourceCode) {
+						cache.assistantSourceCode = text;
+					}
+					webviewPanel.webview.postMessage({
+						type: 'reply-content',
+						fileType: this.getFileType(document), content: document.getText(),
+						assistantContent: cache.assistantSourceCode
+					});
 					return;
 				}
 				case 'content-changed': {
 					// handle the content changed, sync to text document
-					(async () => {
-						await this.updateTextDocument(document, e.content);
-					})();
+					await this.updateTextDocument(document, e.content);
 					return;
 				}
 			}
 		});
 	}
 
-	private getAssistantDocUri(document: vscode.TextDocument): vscode.Uri {
+	private async getAssistantDocUri(document: vscode.TextDocument): Promise<vscode.Uri | undefined> {
 		const docUri = document.uri;
-		const filename = path.basename(docUri.path);
-		const dir = vscode.Uri.from({
-			scheme: docUri.scheme, authority: docUri.authority, path: path.dirname(docUri.path),
-			query: docUri.query, fragment: docUri.fragment
-		});
-		return vscode.Uri.joinPath(dir, `${filename}.mjs`);
+		let currentDir = path.dirname(docUri.path);
+		try {
+			// find assistant file in same folder
+			const filename = path.basename(docUri.path);
+			const dir = vscode.Uri.from({
+				scheme: docUri.scheme, authority: docUri.authority, path: currentDir,
+				query: docUri.query, fragment: docUri.fragment
+			});
+			const uri = vscode.Uri.joinPath(dir, `${filename}.mjs`);
+			await vscode.workspace.fs.stat(uri);
+			return uri;
+		} catch {
+			// find package.json for o23 only
+			if (this.getFileType(document) !== 'o23') {
+				return (void 0);
+			}
+			while (true) {
+				try {
+					const dir = vscode.Uri.from({
+						scheme: docUri.scheme, authority: docUri.authority, path: currentDir,
+						query: docUri.query, fragment: docUri.fragment
+					});
+					// check package.json
+					let uri = vscode.Uri.joinPath(dir, 'package.json');
+					await vscode.workspace.fs.stat(uri);
+					// check o23 extension mjs file
+					uri = vscode.Uri.joinPath(dir, '.o23.mjs');
+					try {
+						await vscode.workspace.fs.stat(uri);
+						// exists
+						return uri;
+					} catch {
+						// no exists
+						return (void 0);
+					}
+				} catch {
+					if (currentDir === vscode.workspace.getWorkspaceFolder(docUri)?.uri.path) {
+						return (void 0);
+					}
+					// get parent folder
+					currentDir = path.dirname(currentDir);
+				}
+			}
+		}
 	}
 
-	private async getAssistantText(document: vscode.TextDocument): Promise<string> {
+	/**
+	 * returns empty string to represent no assistant source code
+	 */
+	private async getAssistantSourceCode(document: vscode.TextDocument): Promise<string> {
 		try {
 			let text;
-			const uri = this.getAssistantDocUri(document);
+			const uri = await this.getAssistantDocUri(document);
+			// eslint-disable-next-line eqeqeq
+			if (uri == null) {
+				return '';
+			}
 			const doc = await vscode.workspace.openTextDocument(uri);
 			if (doc.isDirty) {
 				text = (await vscode.workspace.fs.readFile(uri)).toString();
@@ -126,50 +159,6 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 		} catch (e) {
 			console.error(e);
 			return '';
-		}
-	}
-
-	private async getAssistantForDocument(document: vscode.TextDocument): Promise<any | undefined> {
-		try {
-			let text;
-			const uri = this.getAssistantDocUri(document);
-			const doc = await vscode.workspace.openTextDocument(uri);
-			if (doc.isDirty) {
-				text = (await vscode.workspace.fs.readFile(uri)).toString();
-			} else {
-				text = doc.getText();
-			}
-			//TODO don't know why if there is comments existing in source code, the import will fail
-			// so remove comments from source code, and assume that comment pattern will not occur in string or regexp
-			text = text.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
-			const scripts = await import(`data:text/javascript,${text}`);
-			// console.log(scripts);
-			return scripts.default;
-		} catch (e) {
-			console.error(e);
-			return (void 0);
-		}
-	}
-
-	private serializeAssistant(assistant?: any): string | undefined {
-		// eslint-disable-next-line eqeqeq
-		if (assistant == null) {
-			return (void 0);
-		} else {
-			return JSON.stringify(assistant, (_: string, value: any) => {
-				// eslint-disable-next-line eqeqeq
-				if (value == null) {
-					return null;
-				} else if (typeof value === 'function') {
-					if (value instanceof AsyncFunction) {
-						return {$func: value.toString(), $async: true};
-					} else {
-						return {$func: value.toString(), $async: false};
-					}
-				} else {
-					return value;
-				}
-			}, '  ');
 		}
 	}
 

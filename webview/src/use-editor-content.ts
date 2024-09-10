@@ -19,23 +19,13 @@ export interface UseEditorContentOptions<S extends EditorContentState> {
 }
 
 const deserializeAssistant = (assistantContent?: string) => {
+	console.groupCollapsed(`%c[Parse assistant content]`, 'color:red;font-weight:bold;');
+	console.log(assistantContent);
+	console.groupEnd();
 	if (assistantContent == null || assistantContent.trim().length === 0) {
 		return (void 0);
 	}
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	return JSON.parse(assistantContent, (_: string, value?: any) => {
-		if (value == null) {
-			return null;
-		} else if (typeof value === 'object' && value.$func != null) {
-			if (value.$async === true) {
-				return new Function(`return ${value.$func}`)();
-			} else {
-				return new Function(`return ${value.$func}`)();
-			}
-		} else {
-			return value;
-		}
-	});
+	return new Function(assistantContent.replace('export default', 'return'))();
 };
 
 export const useEditorContent = <S extends EditorContentState>(options: UseEditorContentOptions<S>) => {

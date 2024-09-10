@@ -25,34 +25,28 @@ Also provided the file icons, which need to be activated manually,
 
 ### Extension Settings
 
-Each file can be extended, referring to the example in `/src/test`.
+Each file can be extended by a `.mjs`, referring to the example in [/src/test](https://github.com/InsureMO/rainbow-s2/tree/main/src/test).
+The `.mjs` file must follow these rules:
 
-[//]: # (## Requirements)
+- It can only use `export default`; other `export` methods, such as `export const x = 1;`, are not allowed.
+- `export default` must be at the end of the file, and no other content is permitted after it.
 
-[//]: # (If you have any requirements or dependencies, add a section describing those and how to install and configure them.)
+Finding extension files is performed according to the following rules:
 
-[//]: # (## Extension Settings)
-
-[//]: # (Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.)
-
-[//]: # ()
-
-[//]: # (For example:)
-
-[//]: # ()
-
-[//]: # (This extension contributes the following settings:)
-
-[//]: # ()
-
-[//]: # (* `myExtension.enable`: Enable/disable this extension.)
-
-[//]: # (* `myExtension.thing`: Set to `blah` to do something.)
+- For `d9`: Look for a file with the same name in the same directory, but with the `.mjs` suffix. For example, if the file being edited is
+  `test.d9`, the extension file would be `test.d9.mjs`. If the file being edited is `test.md`, then the extension file would be
+  `test.md.mjs`.
+- For `o23`:
+	- Look for a file with the same name in the same directory, but with the `.mjs` suffix. For example, if the file being edited is
+	  `test.o23`, the extension file would be `test.o23.mjs`. If the file being edited is `test.yaml`, then the extension file would be
+	  `test.yaml.mjs`.
+	- If the extension file does not exist in the same directory, then look for the closest `.o23.mjs` file in the same directory as the
+	  nearest `package.json` file.
 
 ## Known Issues
 
 - The editor does not respond immediately to changes in the corresponding `.mjs` document; you must reopen it to apply the latest extension
-  settings.
+  settings. This situation occurs in scenarios where the editor remains continuously visible, such as in split views.
 - The editor loses its operational state when reactivated.
 
 [//]: # (## Release Notes)
