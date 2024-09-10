@@ -50,7 +50,7 @@ export const useEditorContent = <S extends EditorContentState>(options: UseEdito
 				// handle assistant content
 				const assistant = deserializeAssistant(assistantContent);
 				console.groupCollapsed(`%c${label}`, 'color:red;font-weight:bold;');
-				console.table({Content: content, Assistant: assistant});
+				console.table({Content: content, Assistant: assistant, 'Assistant Content': assistantContent});
 				console.groupEnd();
 				newState.updateAssistant(newState, assistant);
 				return newState;

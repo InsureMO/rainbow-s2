@@ -45,20 +45,21 @@ const createThemeStyles = () => {
 	const D9LightTheme = createD9PlaygroundCssVars(D9LightConstants);
 	const D9DarkConstants = {
 		...D9LightConstants,
-		WIDGET_DECLARATION_INSTRUCTION_COLOR: 'rgb(184, 105, 209)',  // 调整为较亮的紫色，以在暗背景下更显眼
-		WIDGET_DECLARATION_SPLITTER_COLOR: 'rgba(150, 150, 150, 0.7)', // 调整为中灰色的半透明
-		WIDGET_DECLARATION_TYPE_COLOR: 'rgb(184, 105, 209)',         // 调整为较亮的紫色
-		WIDGET_DECLARATION_HEADLINE_COLOR: 'rgb(101, 190, 70)',       // 调整为亮绿色，以在暗背景下突出
-		WIDGET_DECLARATION_PROPERTY_COLOR: 'rgb(100, 195, 197)',      // 调整为明亮的青绿色
-		WIDGET_DECLARATION_ID_COLOR: 'rgb(100, 195, 197)',            // 调整为明亮的青绿色
-		WIDGET_DECLARATION_FLAG_COLOR: 'rgb(150, 149, 90)',           // 调整为亮的黄褐色
-		WIDGET_DECLARATION_ATTR_NAME_COLOR: 'rgb(108, 189, 190)',     // 调整为明亮的青绿色
-		WIDGET_DECLARATION_ATTR_VALUE_ICON_COLOR: 'rgb(101, 190, 70)', // 调整为亮绿色
-		WIDGET_DECLARATION_ATTR_VALUE_STR_COLOR: 'rgb(101, 190, 70)',  // 调整为亮绿色
-		WIDGET_DECLARATION_ATTR_VALUE_EXT_COLOR: 'rgb(30, 77, 215)',   // 调整为较亮的蓝色
-		WIDGET_WRAPPER_SHADOW: '0 0 5px 2px rgba(0,0,0,0.5)',           // 增强阴影效果，以适应暗背景
-		WIDGET_WRAPPER_TOOLBAR_COLOR: 'rgba(255,255,255,0.2)',         // 工具栏颜色调整为深色半透明
-		WIDGET_WRAPPER_TOOLBAR_FILTER: 'drop-shadow(2px 4px 6px rgba(0,0,0,0.5))' // 增强阴影效果以适应暗背景
+		WIDGET_DECLARATION_INSTRUCTION_COLOR: 'rgb(184, 105, 209)',
+		WIDGET_DECLARATION_SPLITTER_COLOR: 'rgba(150, 150, 150, 0.7)',
+		WIDGET_DECLARATION_TYPE_COLOR: 'rgb(184, 105, 209)',
+		WIDGET_DECLARATION_HEADLINE_COLOR: 'rgb(101, 190, 70)',
+		WIDGET_DECLARATION_PROPERTY_COLOR: 'rgb(100, 195, 197)',
+		WIDGET_DECLARATION_ID_COLOR: 'rgb(100, 195, 197)',
+		WIDGET_DECLARATION_FLAG_COLOR: 'rgb(150, 149, 90)',
+		WIDGET_DECLARATION_ATTR_NAME_COLOR: 'rgb(108, 189, 190)',
+		WIDGET_DECLARATION_ATTR_VALUE_ICON_COLOR: 'rgb(101, 190, 70)',
+		WIDGET_DECLARATION_ATTR_VALUE_STR_COLOR: 'rgb(101, 190, 70)',
+		WIDGET_DECLARATION_ATTR_VALUE_EXT_COLOR: 'rgb(30, 77, 215)',
+		WIDGET_WRAPPER_SHADOW: '0 0 5px 2px rgba(0,0,0,0.5)',
+		WIDGET_WRAPPER_TOOLBAR_COLOR: 'rgba(255,255,255,0.2)',
+		WIDGET_WRAPPER_TOOLBAR_FILTER: 'drop-shadow(2px 4px 6px rgba(0,0,0,0.5))',
+		CODE_MIRROR_ACTIVE_LINE_BACKGROUND_COLOR: 'rgba(255,255,255,0.06)'
 	};
 	const D9DarkTheme = createD9PlaygroundCssVars(D9DarkConstants);
 
@@ -66,39 +67,40 @@ const createThemeStyles = () => {
 	const O23LightTheme = createO23PlaygroundCssVars(O23LightConstants);
 	const O23DarkConstants = {
 		...O23LightConstants,
-		EDITOR_ATTRIBUTE_BADGE_COLOR: '#4a6a77',                      // 调整为较暗的蓝绿色
-		EDIT_DIALOG_BACKDROP_COLOR: 'rgba(30, 30, 30, 0.75)',         // 背景遮罩颜色调整为深色半透明
-		EDIT_DIALOG_SHADOW: '0 0 10px 4px rgba(0, 0, 0, 0.6)',        // 增强阴影效果以适应暗背景
-		EDIT_DIALOG_HELP_DOC_TITLE_COLOR: 'rgb(128, 128, 128)',       // 调整为中灰色
-		CONFIGURABLE_ELEMENT_BORDER_COLOR: 'rgb(80, 80, 80)',         // 边框颜色调整为深灰色
-		CONFIGURABLE_ELEMENT_GROUP_BORDER_COLOR: 'rgb(60, 60, 60)',   // 组边框颜色调整为更深灰色
-		TOOLBAR_BUTTON_ACTIVE_BACKGROUND_COLOR: '#4b6e8b',            // 工具栏按钮激活背景颜色调整为较暗的蓝色
-		STEP_OPERATOR_COLOR: '#4b6e8b',                                // 步骤操作员颜色保持一致
-		NODE_START_COLOR: '#ff7f50',                                  // 节点开始颜色调整为珊瑚色
-		NODE_END_COLOR: '#c9a15e',                                    // 节点结束颜色调整为暖灰色
-		NODE_JOIN_END_COLOR: '#8b8b7e',                                // 节点连接结束颜色调整为深灰褐色
-		NODE_STEP_COLOR: '#3a7f54',                                   // 节点步骤颜色调整为深绿色
-		NODE_STEP_HTTP_COLOR: '#7b9d8e',                              // 节点步骤 HTTP 颜色调整为较暗的青绿色
-		NODE_STEP_SETS_COLOR: '#4a3e7d',                              // 节点步骤集合颜色调整为深蓝紫色
-		NODE_ASYNC_SETS_STEP_COLOR: '#ff5c40',                        // 节点异步集合步骤颜色调整为亮橙色
-		NODE_EACH_STEP_COLOR: '#9c6ab0',                              // 节点每一步颜色调整为较暗的紫色
-		NODE_PARALLEL_STEP_COLOR: '#0056a0',                          // 节点并行步骤颜色调整为深蓝色
-		NODE_CONDITIONAL_STEP_COLOR: '#a85d49',                       // 节点条件步骤颜色调整为暗橙色
-		NODE_ROUTES_STEP_COLOR: '#a85d49',                            // 节点路线步骤颜色保持一致
-		NODE_REF_PIPELINE_STEP_COLOR: '#6c032b',                       // 节点引用管道步骤颜色调整为暗红色
-		NODE_REF_STEP_STEP_COLOR: '#6c032b',                          // 节点引用步骤颜色保持一致
-		NODE_TYPEORM_STEP_COLOR: '#7a5f4b',                           // 节点 TypeORM 步骤颜色调整为棕褐色
-		NEXT_STEP_PORT_COLOR: '#6e6f3b',                              // 下一步骤端口颜色调整为暗黄绿色
-		PREVIOUS_STEP_PORT_COLOR: '#6d3c8e',                          // 上一步骤端口颜色调整为深紫色
-		PORT_FIRST_SUB_STEP_COLOR: '#6d3c8e',                         // 第一个子步骤端口颜色保持一致
-		PORT_STEPS_COLOR: '#415c75',                                 // 端口步骤颜色调整为深青蓝色
-		PORT_ERROR_HANDLES_COLOR: '#a2396f',                          // 端口错误处理颜色调整为暗紫红色
-		LINK_ERROR_HANDLES_COLOR: '#8c6a7a',                         // 链接错误处理颜色调整为灰褐色
-		PORT_LAST_SUB_STEP_JOIN_COLOR: '#004a75',                     // 最后一个子步骤连接颜色调整为深蓝色
-		PORT_ROUTE_TEST_COLOR: '#6d3c8e',                             // 端口路线测试颜色保持一致
-		PORT_OTHERWISE_COLOR: '#8c1b8a',                             // 端口其他情况颜色调整为暗紫红色
-		PRE_PORT_COLOR: '#6b8e3f',                                   // 预步骤端口颜色调整为暗绿色
-		POST_PORT_COLOR: '#a45c8d'                                   // 后步骤端口颜色调整为暗粉色
+		EDITOR_ATTRIBUTE_BADGE_COLOR: '#4a6a77',
+		EDIT_DIALOG_BACKDROP_COLOR: 'rgba(30, 30, 30, 0.75)',
+		EDIT_DIALOG_SHADOW: '0 0 10px 4px rgba(0, 0, 0, 0.6)',
+		EDIT_DIALOG_HELP_DOC_TITLE_COLOR: 'rgb(128, 128, 128)',
+		CONFIGURABLE_ELEMENT_BORDER_COLOR: 'rgb(80, 80, 80)',
+		CONFIGURABLE_ELEMENT_GROUP_BORDER_COLOR: 'rgb(60, 60, 60)',
+		TOOLBAR_BUTTON_ACTIVE_BACKGROUND_COLOR: '#4b6e8b',
+		STEP_OPERATOR_COLOR: '#4b6e8b',
+		NODE_START_COLOR: '#ff7f50',
+		NODE_END_COLOR: '#c9a15e',
+		NODE_JOIN_END_COLOR: '#8b8b7e',
+		NODE_STEP_COLOR: '#3a7f54',
+		NODE_STEP_HTTP_COLOR: '#7b9d8e',
+		NODE_STEP_SETS_COLOR: '#4a3e7d',
+		NODE_ASYNC_SETS_STEP_COLOR: '#ff5c40',
+		NODE_EACH_STEP_COLOR: '#9c6ab0',
+		NODE_PARALLEL_STEP_COLOR: '#0056a0',
+		NODE_CONDITIONAL_STEP_COLOR: '#a85d49',
+		NODE_ROUTES_STEP_COLOR: '#a85d49',
+		NODE_REF_PIPELINE_STEP_COLOR: '#6c032b',
+		NODE_REF_STEP_STEP_COLOR: '#6c032b',
+		NODE_TYPEORM_STEP_COLOR: '#7a5f4b',
+		NEXT_STEP_PORT_COLOR: '#6e6f3b',
+		PREVIOUS_STEP_PORT_COLOR: '#6d3c8e',
+		PORT_FIRST_SUB_STEP_COLOR: '#6d3c8e',
+		PORT_STEPS_COLOR: '#415c75',
+		PORT_ERROR_HANDLES_COLOR: '#a2396f',
+		LINK_ERROR_HANDLES_COLOR: '#8c6a7a',
+		PORT_LAST_SUB_STEP_JOIN_COLOR: '#004a75',
+		PORT_ROUTE_TEST_COLOR: '#6d3c8e',
+		PORT_OTHERWISE_COLOR: '#8c1b8a',
+		PRE_PORT_COLOR: '#6b8e3f',
+		POST_PORT_COLOR: '#a45c8d',
+		CODE_MIRROR_ACTIVE_LINE_BACKGROUND_COLOR: 'rgba(255,255,255,0.06)'
 	};
 	const O23DarkTheme = createO23PlaygroundCssVars(O23DarkConstants);
 

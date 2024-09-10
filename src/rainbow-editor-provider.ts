@@ -45,7 +45,7 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 					fileType: this.getFileType(document), content: document.getText(),
 					assistantContent: cache.assistantContent
 				});
-			} else if (e.document.uri.toString() === this.getAssistantDocUri(document).toString()) {
+			} else if (!e.document.isDirty && e.document.uri.toString() === this.getAssistantDocUri(document).toString()) {
 				const text = (e.document.getText() || '').trim();
 				if (text !== cache.assistantText) {
 					cache.assistantText = text;
@@ -77,6 +77,12 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 				case 'ask-content': {
 					// handle the asking content for initializing the editor
 					(async () => {
+						// re-retrieve the assistant content, compare with cache
+						const text = await this.getAssistantText(document);
+						if (text !== cache.assistantText) {
+							cache.assistantText = text;
+							cache.assistantContent = this.serializeAssistant(await this.getAssistantForDocument(document));
+						}
 						webviewPanel.webview.postMessage({
 							type: 'reply-content',
 							fileType: this.getFileType(document), content: document.getText(),

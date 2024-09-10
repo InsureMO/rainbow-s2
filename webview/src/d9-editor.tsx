@@ -86,7 +86,7 @@ export const D9VSCodeEditor = () => {
 		return <Fragment/>;
 	}
 
-	console.log('mock data', state.externalDefs.playground.mockData);
+	// console.log('mock data', state.externalDefs.playground.mockData);
 	return <GlobalRoot>
 		<BridgeEventBusProvider>
 			<ThemeHandler theme={themeRef}/>
