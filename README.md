@@ -49,9 +49,11 @@ Each file can be extended, referring to the example in `/src/test`.
 
 [//]: # (* `myExtension.thing`: Set to `blah` to do something.)
 
-[//]: # (## Known Issues)
+## Known Issues
 
-[//]: # (Calling out known issues can help limit users opening duplicate issues against your extension.)
+- The editor does not respond immediately to changes in the corresponding `.mjs` document; you must reopen it to apply the latest extension
+  settings.
+- The editor loses its operational state when reactivated.
 
 [//]: # (## Release Notes)
 
