@@ -4,7 +4,7 @@
 	"icon": "media/s2-256x256.png",
 	"description": "Editors for @rainbow configuration files.",
 	"publisher": "InsureMO",
-	"version": "0.1.0",
+	"version": "0.1.0-alpha.1",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/InsureMO/rainbow-s2.git"
