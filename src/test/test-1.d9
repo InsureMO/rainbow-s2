@@ -2,11 +2,12 @@
 
 ## Section::
 
-- Input::Hello::world
-- Input::Hello::world1
-- Input::Hello1::world6
-- Input::Hello2::world1
-- Dropdown::X::d
+- Input::Hello::hello
+- Input::Hello1::hello1
+- Input::Hello2::hello2
+- Dropdown::X::x
   - options:
     - X: X-Man
-    - Y: Unknown
+    - Y: Unknown 
+- Dropdown::Y::y
+  - options: @ext.staticCodes.available

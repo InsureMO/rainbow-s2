@@ -23,6 +23,10 @@ Also provided the file icons, which need to be activated manually,
 
 > @Rainbow file icons theme is based on Seti.
 
+### Extension Settings
+
+Each file can be extended, referring to the example in `/src/test`.
+
 [//]: # (## Requirements)
 
 [//]: # (If you have any requirements or dependencies, add a section describing those and how to install and configure them.)
@@ -32,12 +36,15 @@ Also provided the file icons, which need to be activated manually,
 [//]: # (Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.)
 
 [//]: # ()
+
 [//]: # (For example:)
 
 [//]: # ()
+
 [//]: # (This extension contributes the following settings:)
 
 [//]: # ()
+
 [//]: # (* `myExtension.enable`: Enable/disable this extension.)
 
 [//]: # (* `myExtension.thing`: Set to `blah` to do something.)
@@ -53,17 +60,22 @@ Also provided the file icons, which need to be activated manually,
 [//]: # (### 1.0.0)
 
 [//]: # ()
+
 [//]: # (Initial release of ...)
 
 [//]: # ()
+
 [//]: # (### 1.0.1)
 
 [//]: # ()
+
 [//]: # (Fixed issue #.)
 
 [//]: # ()
+
 [//]: # (### 1.1.0)
 
 [//]: # ()
+
 [//]: # (Added features X, Y, and Z.)
 
