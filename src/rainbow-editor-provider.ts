@@ -8,7 +8,7 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 		return vscode.window.registerCustomEditorProvider(RainbowEditorProvider.viewType, provider);
 	}
 
-	private static readonly viewType = 'rainbow.editor';
+	public static readonly viewType = 'rainbow.editor';
 
 	constructor(private readonly context: vscode.ExtensionContext) {
 	}

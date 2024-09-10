@@ -23,6 +23,12 @@ export function activate(context: vscode.ExtensionContext) {
 	// context.subscriptions.push(disposable);
 	// register custom editor provider
 	context.subscriptions.push(RainbowEditorProvider.register(context));
+	context.subscriptions.push(vscode.commands.registerCommand('rainbow.openAsD9', async (uri: vscode.Uri) => {
+		await vscode.commands.executeCommand('vscode.openWith', uri, RainbowEditorProvider.viewType);
+	}));
+	context.subscriptions.push(vscode.commands.registerCommand('rainbow.openAsO23', async (uri: vscode.Uri) => {
+		await vscode.commands.executeCommand('vscode.openWith', uri, RainbowEditorProvider.viewType);
+	}));
 }
 
 // This method is called when your extension is deactivated

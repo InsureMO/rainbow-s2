@@ -18,6 +18,35 @@
 	"activationEvents": [],
 	"main": "./dist/extension.js",
 	"contributes": {
+		"commands": [
+			{
+				"command": "rainbow.openAsO23",
+				"title": "Open as O23"
+			},
+			{
+				"command": "rainbow.openAsD9",
+				"title": "Open as D9"
+			}
+		],
+		"menus": {
+			"explorer/context": [
+				{
+					"command": "rainbow.openAsO23",
+					"when": "resourceExtname == .yaml",
+					"group": "navigation"
+				},
+				{
+					"command": "rainbow.openAsO23",
+					"when": "resourceExtname == .yml",
+					"group": "navigation"
+				},
+				{
+					"command": "rainbow.openAsD9",
+					"when": "resourceExtname == .md",
+					"group": "navigation"
+				}
+			]
+		},
 		"customEditors": [
 			{
 				"viewType": "rainbow.editor",
