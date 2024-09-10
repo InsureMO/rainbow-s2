@@ -46,7 +46,7 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 					assistantContent: cache.assistantContent
 				});
 			} else if (!e.document.isDirty && e.document.uri.toString() === this.getAssistantDocUri(document).toString()) {
-				const text = (e.document.getText() || '').trim();
+				const text = await this.getAssistantText(document);
 				if (text !== cache.assistantText) {
 					cache.assistantText = text;
 					cache.assistantContent = this.serializeAssistant(await this.getAssistantForDocument(document));
@@ -93,7 +93,9 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 				}
 				case 'content-changed': {
 					// handle the content changed, sync to text document
-					this.updateTextDocument(document, e.content);
+					(async () => {
+						await this.updateTextDocument(document, e.content);
+					})();
 					return;
 				}
 			}
@@ -112,9 +114,14 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 
 	private async getAssistantText(document: vscode.TextDocument): Promise<string> {
 		try {
-			const assistantDocUri = this.getAssistantDocUri(document);
-			const assistantDoc = await vscode.workspace.openTextDocument(assistantDocUri);
-			const text = assistantDoc.getText();
+			let text;
+			const uri = this.getAssistantDocUri(document);
+			const doc = await vscode.workspace.openTextDocument(uri);
+			if (doc.isDirty) {
+				text = (await vscode.workspace.fs.readFile(uri)).toString();
+			} else {
+				text = doc.getText();
+			}
 			return (text || '').trim();
 		} catch (e) {
 			console.error(e);
@@ -124,10 +131,18 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 
 	private async getAssistantForDocument(document: vscode.TextDocument): Promise<any | undefined> {
 		try {
-			const assistantDocUri = this.getAssistantDocUri(document);
-			// const assistantDoc = await vscode.workspace.openTextDocument(assistantDocUri);
-			// const text = assistantDoc.getText();
-			const scripts = await import(assistantDocUri.fsPath);
+			let text;
+			const uri = this.getAssistantDocUri(document);
+			const doc = await vscode.workspace.openTextDocument(uri);
+			if (doc.isDirty) {
+				text = (await vscode.workspace.fs.readFile(uri)).toString();
+			} else {
+				text = doc.getText();
+			}
+			//TODO don't know why if there is comments existing in source code, the import will fail
+			// so remove comments from source code, and assume that comment pattern will not occur in string or regexp
+			text = text.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
+			const scripts = await import(`data:text/javascript,${text}`);
 			// console.log(scripts);
 			return scripts.default;
 		} catch (e) {
@@ -188,7 +203,7 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 	/**
 	 * Write out the json to a given document.
 	 */
-	private updateTextDocument(document: vscode.TextDocument, content: string) {
+	private async updateTextDocument(document: vscode.TextDocument, content: string) {
 		if (document.getText() === content) {
 			return;
 		}
@@ -197,7 +212,8 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 		// Just replace the entire document every time for this example extension.
 		// A more complete extension should compute minimal edits instead.
 		edit.replace(document.uri, new vscode.Range(0, 0, document.lineCount, 0), content);
-
+		// save anyway, since cannot retain custom editor when switching editor
+		vscode.workspace.save(document.uri);
 		return vscode.workspace.applyEdit(edit);
 	}
 

@@ -56,7 +56,7 @@ export const useEditorContent = <S extends EditorContentState>(options: UseEdito
 				return newState;
 			});
 		};
-		const onContentChangeByDocument = onContent('Handle[Content changed from editor provider].');
+		const onContentChangeByDocument = onContent('On[Content changed from editor provider].');
 		on(AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, onContentChangeByDocument);
 		if (!state.initialized) {
 			console.log(`%cFire[Ask content].`, 'color:red;font-weight:bold;');
