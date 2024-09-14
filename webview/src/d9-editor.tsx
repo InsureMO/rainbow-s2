@@ -1,8 +1,8 @@
 import {BridgeEventBusProvider, NodeDef, PropValue, StandaloneRoot, ValueChangedOptions} from '@rainbow-d9/n1';
-import {GlobalRoot} from '@rainbow-d9/n2';
+import {AlertLabel, GlobalEventTypes, GlobalRoot, useGlobalEventBus} from '@rainbow-d9/n2';
 import {parseDoc} from '@rainbow-d9/n3';
 import {PlaygroundDecorator, PlaygroundDef} from '@rainbow-d9/n5';
-import {Fragment, useRef, useState} from 'react';
+import {Fragment, useEffect, useRef, useState} from 'react';
 import {AppEventTypes, useAppEventBus} from './app-event-bus';
 import {getThemeFromDOM, theme, ThemeHandler} from './theme-handler';
 import {ThemeKind} from './types';
@@ -41,6 +41,29 @@ export type D9AssistantContent = {
 	mockData?: Exclude<PlaygroundDef['mockData'], VoidFunction>;
 	externalDefs?: Exclude<PlaygroundDef['externalDefs'], VoidFunction>;
 	externalDefsTypes?: Exclude<PlaygroundDef['externalDefsTypes'], VoidFunction>;
+};
+
+export const AlertDelegate = () => {
+	const {fire} = useGlobalEventBus();
+	useEffect(() => {
+		// replace alert
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		window.alert = (message?: any) => {
+			if (message == null) {
+				message = 'No message, but alert is triggered.';
+			} else if (typeof message === 'string' && message.length === 0) {
+				message = 'Empty message, but alert is triggered.';
+			} else if (typeof message === 'string') {
+				// nothing
+			} else {
+				message = JSON.stringify(message);
+			}
+			fire(GlobalEventTypes.SHOW_ALERT, <AlertLabel>
+				{message}
+			</AlertLabel>);
+		};
+	}, [fire]);
+	return <Fragment/>;
 };
 
 export const D9VSCodeEditor = () => {
@@ -88,6 +111,7 @@ export const D9VSCodeEditor = () => {
 
 	// console.log('mock data', state.externalDefs.playground.mockData);
 	return <GlobalRoot>
+		<AlertDelegate/>
 		<BridgeEventBusProvider>
 			<ThemeHandler theme={themeRef}/>
 			<StandaloneRoot {...state.def!} $root={state.editModel!} externalDefs={state.externalDefs!}/>

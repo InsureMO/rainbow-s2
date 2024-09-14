@@ -11,3 +11,6 @@
     - Y: Unknown 
 - Dropdown::Y::y
   - options: @ext.staticCodes.available
+- Button::
+  - text: click me
+  - click: @ext.clickMe

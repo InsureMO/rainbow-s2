@@ -10,39 +10,36 @@ path-params:
 expose-headers:
   x-a: aaa
   x-b: bbb
-
 steps:
   - name: Conditional
     use: conditional
     check: $factor.id != null
     steps:
-      - name: "Check Pass #1"
+      - name: 'Check Pass #1'
         use: snippet
-      - name: "Check Pass #2"
+      - name: 'Check Pass #2'
         use: snippet
     otherwise:
-      - name: "Otherwise #1"
+      - name: 'Otherwise #1'
         use: snippet
-    $diagram:
-      $foldSubSteps: true
+    $diagram: {}
   - name: Routes
     use: routes
     routes:
       - check: $factor.type == 'T1'
         steps:
-          - name: "Do for T1 #1"
+          - name: 'Do for T1 #1'
             use: snippet
-          - name: "Do for T1 #2"
+          - name: 'Do for T1 #2'
             use: snippet
       - check: $factor.type == 'T2'
         steps:
-          - name: "Do for T2 #1"
+          - name: 'Do for T2 #1'
             use: snippet
     otherwise:
       - name: Either T1 or T2
         use: snippet
-    $diagram:
-      $foldSubSteps: true
+    $diagram: {}
   - name: Auth
     use: sets
     steps:
@@ -52,29 +49,28 @@ steps:
       - name: Authorize
         use: ref-step
         ref: ask-permissions
-    $diagram:
-      $foldSubSteps: true
+    $diagram: {}
   - name: Prepare Data
     use: parallel
     steps:
       - name: Prepare Codes
         use: http-fetch
-        system: CodeService
         endpoint: askProductCodes
-        responseErrorHandles:
-          400: |-
+        response-error-handles:
+          '400': |-
             $.$logger.log('HTTP status 400 detected.', options.$factor, 'test-log');
             $.$errors.uncatchable({code: '000', reason: ''});
+        system: CodeService
       - name: Prepare Codes 2
         use: http-get
-        system: CodeService
         endpoint: askProductCategoryCodes
+        system: CodeService
       - name: Prepare Codes 3
         use: http-post
-        system: AuthService
         endpoint: checkToken
+        system: AuthService
     $diagram:
-      $foldSubSteps: true
+      $fold-sub-steps: true
   - name: TypeORM Trans T1
     use: typeorm-transactional
     datasource: db-data
@@ -107,7 +103,7 @@ steps:
         transaction: t1
         sql: SELECT T.ID AS id, T.NAME AS name FROM TABLE T WHERE T.ID = $id AND T.ENABLED = $enabled.@bool
     $diagram:
-      $foldSubSteps: true
+      $fold-sub-steps: true
   - name: Do validation
     use: sets
     steps:
@@ -119,8 +115,8 @@ steps:
             property: firstName
             merge: firstName
           - name: Validate first name
-            from-input: return $factor.firstName;
             use: snippet
+            from-input: return $factor.firstName;
           - name: Validate last name
             use: snippet
       - name: Validate age
@@ -130,36 +126,35 @@ steps:
       - name: Validate address
         use: sets
         steps:
-          - name: "Validate address #1"
+          - name: 'Validate address #1'
             use: snippet
       - name: Validate job
         use: sets
         steps:
           - name: Validate job occupation
             use: snippet
+    to-output: $result
     error-handles:
+      any:
+        - name: Catch any error
+          use: snippet
       catchable:
         - name: Catch catchable error
           use: sets
           steps:
-            - name: "Catch catchable #1"
+            - name: 'Catch catchable #1'
               use: snippet
-      uncatchable:
-        - name: Catch uncatchable error
-          use: snippet
       exposed:
         - name: Catch exposed error
           use: snippet
-      any:
-        - name: Catch any error
+      uncatchable:
+        - name: Catch uncatchable error
           use: snippet
-    to-output: $result
     $diagram:
-      $foldSubSteps: true
-      $foldCatchable: true
-      $foldUncatchable: true
-      $foldExposed: true
-      $foldAny: true
+      $fold-any: true
+      $fold-catchable: true
+      $fold-exposed: true
+      $fold-uncatchable: true
   - name: Clean Data
     use: sets
     steps:
@@ -170,7 +165,7 @@ steps:
         use: del-property
         property: $cache
     $diagram:
-      $foldSubSteps: true
+      $fold-sub-steps: true
   - name: Create a sequence
     use: snowflake
     merge: snowflakeId
@@ -185,10 +180,10 @@ steps:
       - name: Write validation results to log
         use: each
         from-input: return $factor.results;
-        item-name: result
         steps:
           - name: Write validation result to log
             use: snippet
             snippet: $.$logger.log('Invalid thing detected.', $factor.result, 'test-log');
+        item-name: result
     $diagram:
-      $foldSubSteps: true
+      $fold-sub-steps: true
