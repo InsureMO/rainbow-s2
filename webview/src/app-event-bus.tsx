@@ -13,7 +13,7 @@ export enum AppEventTypes {
 	CHANGE_THEME = 'change-theme'
 }
 
-export interface PlaygroundEventBus {
+export interface AppEventBus {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	fire(type: AppEventTypes.INIT_CONTENT, fileType: FileType, content?: string, assistantContent?: any): this;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -49,13 +49,13 @@ export interface PlaygroundEventBus {
 	off(type: AppEventTypes.CHANGE_THEME, listener: (theme: ThemeKind) => void): this;
 }
 
-const Context = createContext<PlaygroundEventBus>({} as PlaygroundEventBus);
+const Context = createContext<AppEventBus>({} as AppEventBus);
 Context.displayName = 'AppEventBus';
 
 export const AppEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
-	const bus = useCreateEventBus<PlaygroundEventBus>('s2-app');
+	const bus = useCreateEventBus<AppEventBus>('s2-app');
 
 	return <Context.Provider value={bus}>
 		{children}

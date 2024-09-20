@@ -14,30 +14,30 @@ const createThemeStyles = () => {
 	const N2LightTheme = createN2CssVars(N2LightConstants);
 	const N2DarkConstants = {
 		...N2LightConstants,
-		FONT_COLOR: 'rgb(204,204,204)',       // 从浅灰色调调整为深灰色调，以便在黑色背景下可读性更高
-		BG_COLOR: 'rgb(34,34,34)',             // 背景色设置为深灰色或接近黑色
-		PRIMARY_COLOR: 'rgb(102,165,255)',     // 主色调稍微亮一些以确保在暗背景下仍能突出
-		DANGER_COLOR: 'rgb(255,87,92)',        // 危险色调整为更亮的红色以保持警示效果
-		SUCCESS_COLOR: 'rgb(40,167,69)',       // 成功色调整为较亮的绿色以保持视觉对比
-		WARN_COLOR: 'rgb(255,193,7)',          // 警告色保持不变，因为它在暗背景下也能突出
-		INFO_COLOR: 'rgb(85,183,194)',         // 信息色调整为略微亮的蓝绿色
-		WAIVE_COLOR: 'rgb(102,102,102)',        // 适度调整为深灰色以配合暗背景
-		HOVER_COLOR: 'rgb(51,51,51)',          // 悬停色调整为稍微亮一点的灰色以提高可见性
-		INVERT_COLOR: 'rgb(34,34,34)',         // 反转色与背景色相同
-		DISABLE_COLOR: 'rgb(51,51,51)',        // 禁用色调整为深灰色
-		PLACEHOLDER_COLOR: 'rgb(128,128,128)', // 占位符色调整为中灰色以适应暗背景
-		BORDER_COLOR: 'rgb(77,77,77)',         // 边框色调整为深灰色
-		SHADOW_COLOR: 'rgb(0,0,0)',            // 阴影色保持黑色
-		WAIVE_SHADOW_COLOR: 'rgb(0,0,0)',      // 免除阴影色保持黑色
+		FONT_COLOR: 'rgb(204,204,204)',
+		BG_COLOR: 'rgb(34,34,34)',
+		PRIMARY_COLOR: 'rgb(102,165,255)',
+		DANGER_COLOR: 'rgb(255,87,92)',
+		SUCCESS_COLOR: 'rgb(40,167,69)',
+		WARN_COLOR: 'rgb(255,193,7)',
+		INFO_COLOR: 'rgb(85,183,194)',
+		WAIVE_COLOR: 'rgb(102,102,102)',
+		HOVER_COLOR: 'rgb(51,51,51)',
+		INVERT_COLOR: 'rgb(34,34,34)',
+		DISABLE_COLOR: 'rgb(51,51,51)',
+		PLACEHOLDER_COLOR: 'rgb(128,128,128)',
+		BORDER_COLOR: 'rgb(77,77,77)',
+		SHADOW_COLOR: 'rgb(0,0,0)',
+		WAIVE_SHADOW_COLOR: 'rgb(0,0,0)',
 		// for widgets
-		CAPTION_FONT_COLOR: 'rgb(153,153,153)', // 标题字体色调整为较亮的灰色
-		TAB_ACTIVE_COLOR: 'rgb(102,165,255)',   // 活动标签颜色保持与主色相同
-		WIZARD_STEP_DONE_COLOR: 'rgb(64,74,82)',// 完成步骤色调整为较暗的蓝灰色
-		WIZARD_STEP_ACTIVE_COLOR: 'rgb(102,165,255)', // 活动步骤颜色保持与主色相同
-		RIB_COLOR: 'rgb(51,53,56)',             // 边条颜色调整为较暗的灰蓝色
-		TREE_LINE_COLOR: 'rgb(77,77,77)',        // 树状线条颜色调整为深灰色
-		SCROLL_THUMB_COLOR: 'rgb(128,128,128)',  // 滚动条滑块颜色调整为中灰色
-		SCROLL_TRACK_COLOR: 'rgba(51,51,51,0.5)' // 滚动条轨道颜色调整为半透明的深灰色
+		CAPTION_FONT_COLOR: 'rgb(153,153,153)',
+		TAB_ACTIVE_COLOR: 'rgb(102,165,255)',
+		WIZARD_STEP_DONE_COLOR: 'rgb(64,74,82)',
+		WIZARD_STEP_ACTIVE_COLOR: 'rgb(102,165,255)',
+		RIB_COLOR: 'rgb(51,53,56)',
+		TREE_LINE_COLOR: 'rgb(77,77,77)',
+		SCROLL_THUMB_COLOR: 'rgb(128,128,128)',
+		SCROLL_TRACK_COLOR: 'rgba(51,51,51,0.5)'
 	};
 	const N2DarkTheme = createN2CssVars(N2DarkConstants);
 
