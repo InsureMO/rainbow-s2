@@ -47,13 +47,29 @@ export const useEditorContent = <S extends EditorContentState>(options: UseEdito
 			});
 		};
 		const onContentChangeByDocument = onContent('On[Content changed from editor provider].');
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const onAssistantContent = (label: string) => (assistantContent?: any) => {
+			setState(state => {
+				const newState = {...state, initialized: true};
+				// handle assistant content
+				const assistant = deserializeAssistant(assistantContent);
+				console.groupCollapsed(`%c${label}`, 'color:red;font-weight:bold;');
+				console.table({Assistant: assistant, 'Assistant Content': assistantContent});
+				console.groupEnd();
+				newState.updateAssistant(newState, assistant);
+				return newState;
+			});
+		};
+		const onAssistantContentChangeByDocument = onAssistantContent('On[Assistant content changed from editor provider].');
 		on(AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, onContentChangeByDocument);
+		on(AppEventTypes.ASSISTANT_CONTENT_CHANGED_BY_DOCUMENT, onAssistantContentChangeByDocument);
 		if (!state.initialized) {
 			console.log(`%cFire[Ask content].`, 'color:red;font-weight:bold;');
 			fire(AppEventTypes.ASK_CONTENT, onContent('Callback[Ask content].'));
 		}
 		return () => {
 			off(AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, onContentChangeByDocument);
+			off(AppEventTypes.ASSISTANT_CONTENT_CHANGED_BY_DOCUMENT, onAssistantContentChangeByDocument);
 		};
 	}, [on, off, fire, state.initialized, setState]);
 };

@@ -209,7 +209,7 @@ export class RainbowEditorProvider implements vscode.CustomTextEditorProvider {
 	private getFileType(document: vscode.TextDocument): 'd9' | 'o23' | 'unknown' {
 		const filename = document.fileName;
 		switch (true) {
-			case filename.endsWith('.d9') :
+			case filename.endsWith('.d9'):
 			case filename.endsWith('.md'):
 				return 'd9';
 			case filename.endsWith('.o23'):

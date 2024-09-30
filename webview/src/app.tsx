@@ -38,14 +38,14 @@ const ContentHolder = (props: AppProps) => {
 							...state, fileType: newFileType, content: newContent, assistantContent: newAssistantContent
 						}));
 						fire(AppEventTypes.FILE_TYPE_CHANGED, newFileType, newContent, newAssistantContent);
-					} else if (newContent !== state.content) {
+					} else if ((newContent ?? '').trim() !== (state.content ?? '').trim()) {
 						// fire event to editor, content changed
 						setState(state => ({...state, content: newContent, assistantContent: newAssistantContent}));
 						fire(AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, newContent, newAssistantContent);
-					} else if (newAssistantContent !== state.assistantContent) {
+					} else if ((newAssistantContent ?? '').trim() !== (state.assistantContent ?? '').trim()) {
 						// fire event to editor, content changed
 						setState(state => ({...state, content: newContent, assistantContent: newAssistantContent}));
-						fire(AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, newContent, newAssistantContent);
+						fire(AppEventTypes.ASSISTANT_CONTENT_CHANGED_BY_DOCUMENT, newAssistantContent);
 					} else {
 						// no change, do nothing
 					}

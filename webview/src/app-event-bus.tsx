@@ -9,6 +9,7 @@ export enum AppEventTypes {
 	ASK_CONTENT = 'ask-content',
 	FILE_TYPE_CHANGED = 'file-type-changed',
 	CONTENT_CHANGED_BY_DOCUMENT = 'content-changed-by-document',
+	ASSISTANT_CONTENT_CHANGED_BY_DOCUMENT = 'assistant-content-changed-by-document',
 	CONTENT_CHANGED_BY_EDITOR = 'content-changed-by-editor',
 	CHANGE_THEME = 'change-theme'
 }
@@ -41,6 +42,12 @@ export interface AppEventBus {
 	on(type: AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, listener: (content?: string, assistantContent?: any) => void): this;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	off(type: AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, listener: (content?: string, assistantContent?: any) => void): this;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	fire(type: AppEventTypes.ASSISTANT_CONTENT_CHANGED_BY_DOCUMENT, assistantContent?: any): this;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	on(type: AppEventTypes.ASSISTANT_CONTENT_CHANGED_BY_DOCUMENT, listener: (assistantContent?: any) => void): this;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	off(type: AppEventTypes.ASSISTANT_CONTENT_CHANGED_BY_DOCUMENT, listener: (assistantContent?: any) => void): this;
 	fire(type: AppEventTypes.CONTENT_CHANGED_BY_EDITOR, content?: string): this;
 	on(type: AppEventTypes.CONTENT_CHANGED_BY_EDITOR, listener: (content?: string) => void): this;
 	off(type: AppEventTypes.CONTENT_CHANGED_BY_EDITOR, listener: (content?: string) => void): this;
