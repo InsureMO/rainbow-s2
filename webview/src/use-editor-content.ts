@@ -36,7 +36,9 @@ export const useEditorContent = <S extends EditorContentState>(options: UseEdito
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const onContent = (label: string) => (content?: string, assistantContent?: any) => {
 			setState(state => {
-				const newState = {...state, initialized: true, editModel: {config: content ?? ''}};
+				const newState = {...state, initialized: true};
+				// keep the original edit model
+				newState.editModel.config = content ?? '';
 				// handle assistant content
 				const assistant = deserializeAssistant(assistantContent);
 				console.groupCollapsed(`%c${label}`, 'color:red;font-weight:bold;');
