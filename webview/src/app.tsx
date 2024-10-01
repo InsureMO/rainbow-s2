@@ -1,4 +1,5 @@
-import {Fragment, useEffect, useState} from 'react';
+import {useForceUpdate} from '@rainbow-d9/n1';
+import {Fragment, MutableRefObject, useEffect, useRef, useState} from 'react';
 import {AppEventBusProvider, AppEventTypes, useAppEventBus} from './app-event-bus';
 import {D9VSCodeEditor} from './d9-editor';
 import {GlobalStyles} from './global-styles';
@@ -19,8 +20,14 @@ interface ContentState {
 	assistantContent?: string;
 }
 
-const ContentHolder = (props: AppProps) => {
-	const {onContentChanged} = props;
+interface CompositionState {
+	/** is IME inputting or not */
+	composing: boolean;
+	content?: string;
+}
+
+const ContentHolder = (props: AppProps & { composition: MutableRefObject<CompositionState> }) => {
+	const {onContentChanged, composition} = props;
 
 	const {on, off, fire} = useAppEventBus();
 	const [state, setState] = useState<ContentState>({});
@@ -29,20 +36,21 @@ const ContentHolder = (props: AppProps) => {
 			const {data} = event;
 			switch (data.type) {
 				case InternalMessageType.TRY_UPDATE_CONTENT: {
-					const {
-						fileType: newFileType, content: newContent, assistantContent: newAssistantContent
-					} = data as TryUpdateContentMessage;
+					const {fileType: newFileType} = data as TryUpdateContentMessage;
+					let {content: newContent, assistantContent: newAssistantContent} = data as TryUpdateContentMessage;
+					newContent = (newContent ?? '').trim().replace(/\r/g, '');
+					newAssistantContent = (newAssistantContent ?? '').trim().replace(/\r/g, '');
 					if (newFileType !== state.fileType) {
 						// fire event to app, file type changed, switching editor
 						setState(state => ({
 							...state, fileType: newFileType, content: newContent, assistantContent: newAssistantContent
 						}));
 						fire(AppEventTypes.FILE_TYPE_CHANGED, newFileType, newContent, newAssistantContent);
-					} else if ((newContent ?? '').trim() !== (state.content ?? '').trim()) {
+					} else if (newContent !== (state.content ?? '').trim()) {
 						// fire event to editor, content changed
 						setState(state => ({...state, content: newContent, assistantContent: newAssistantContent}));
 						fire(AppEventTypes.CONTENT_CHANGED_BY_DOCUMENT, newContent, newAssistantContent);
-					} else if ((newAssistantContent ?? '').trim() !== (state.assistantContent ?? '').trim()) {
+					} else if (newAssistantContent !== (state.assistantContent ?? '').trim()) {
 						// fire event to editor, content changed
 						setState(state => ({...state, content: newContent, assistantContent: newAssistantContent}));
 						fire(AppEventTypes.ASSISTANT_CONTENT_CHANGED_BY_DOCUMENT, newAssistantContent);
@@ -64,9 +72,15 @@ const ContentHolder = (props: AppProps) => {
 			onContent(state.content ?? '', state.assistantContent);
 		};
 		const onContentChangedByEditor = async (content?: string) => {
-			// handle event content changed event from editor
-			setState(state => ({...state, content: content ?? ''}));
-			await onContentChanged(content ?? '');
+			if (composition.current.composing) {
+				// console.log('Content change triggered by editor was ignored because of IME inputting.');
+				// take content into composition ref
+				composition.current.content = content ?? '';
+			} else {
+				// handle event content changed event from editor
+				setState(state => ({...state, content: content ?? ''}));
+				await onContentChanged(content ?? '');
+			}
 		};
 		window.addEventListener('message', onMessage);
 		on(AppEventTypes.INIT_CONTENT, onInitContent);
@@ -78,7 +92,7 @@ const ContentHolder = (props: AppProps) => {
 			off(AppEventTypes.ASK_CONTENT, onAskContent);
 			off(AppEventTypes.CONTENT_CHANGED_BY_EDITOR, onContentChangedByEditor);
 		};
-	}, [on, off, fire, state.fileType, state.content, state.assistantContent, onContentChanged]);
+	}, [on, off, fire, state.fileType, state.content, state.assistantContent, onContentChanged, composition]);
 
 	return <Fragment/>;
 };
@@ -109,13 +123,56 @@ const Editor = () => {
 		case 'o23':
 			return <O23VSCodeEditor/>;
 		case 'unknown':
-			return <div>
+		default:
+			return <div data-w="unknown-file-type">
 				Unknown file type. For @rainbow-d9, the file extension should be one of ".d9" or ".md". For
 				@rainbow-o23, the file extension should be one of ".o23", ".yml", or ".yaml".
 			</div>;
-		default:
-			return <Fragment/>;
 	}
+};
+
+const CompositionHandler = (props: { state: MutableRefObject<CompositionState> }) => {
+	const {state} = props;
+
+	const renderRef = useRef<HTMLSpanElement>(null);
+	const {fire} = useAppEventBus();
+	const forceUpdate = useForceUpdate();
+	useEffect(() => {
+		if (renderRef.current == null) {
+			return;
+		}
+		const previousElement = renderRef.current.previousElementSibling as HTMLDivElement | null | undefined;
+		if (previousElement == null) {
+			// retry after 30ms
+			setTimeout(forceUpdate, 30);
+			return;
+		}
+		const widgetType = previousElement.getAttribute('data-w');
+		if (widgetType !== 'd9-page') {
+			// retry after 30ms
+			setTimeout(forceUpdate, 30);
+			return;
+		}
+		const page = previousElement;
+		const onCompositionStart = () => {
+			state.current.composing = true;
+		};
+		const onCompositionEnd = () => {
+			state.current.composing = false;
+			if (state.current.content != null) {
+				// handle content changed by composition
+				fire(AppEventTypes.CONTENT_CHANGED_BY_EDITOR, state.current.content);
+			}
+		};
+		page.addEventListener('compositionstart', onCompositionStart);
+		page.addEventListener('compositionend', onCompositionEnd);
+		return () => {
+			page.removeEventListener('compositionstart', onCompositionStart);
+			page.removeEventListener('compositionend', onCompositionEnd);
+		};
+	});
+
+	return <span style={{display: 'none'}} ref={renderRef}/>;
 };
 
 interface AppProps {
@@ -125,6 +182,7 @@ interface AppProps {
 const EditorWrapper = (props: AppProps) => {
 	const {onContentChanged} = props;
 
+	const compositionRef = useRef<CompositionState>({composing: false});
 	const {fire} = useAppEventBus();
 	useEffect(() => {
 		const onMessage = (event: MessageEvent<InternalMessage>) => {
@@ -154,8 +212,9 @@ const EditorWrapper = (props: AppProps) => {
 	}, [fire]);
 
 	return <>
-		<ContentHolder onContentChanged={onContentChanged}/>
+		<ContentHolder onContentChanged={onContentChanged} composition={compositionRef}/>
 		<Editor/>
+		<CompositionHandler state={compositionRef}/>
 	</>;
 };
 

@@ -818,46 +818,46 @@
     "@projectstorm/react-diagrams-defaults" "7.1.3"
     "@projectstorm/react-diagrams-routing" "7.1.3"
 
-"@rainbow-d9/echarts@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/echarts/-/echarts-1.2.0.tgz#8a4cc4a707c533fe1fe6cc4da36fb18a46f770fd"
-  integrity sha512-1exD1nxEihv1s+5HN252cIESfI1EUyhVMvB+qvF2DHXmCBEO3S9Uycx1xa/IEswIJfkzMjeKLki5XM/cdZgN0Q==
+"@rainbow-d9/echarts@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/echarts/-/echarts-1.2.1.tgz#754fb635a3b3638a704b61180cb678385ce2926e"
+  integrity sha512-2Mtea5k3BKXzah664assdfvX1cwudhBgdTFcE777AGVsZGGahnrxiEx9qOmRk3GlPR/yNAN+kGHQmzLnxS1p8Q==
   dependencies:
-    "@rainbow-d9/n2" "1.2.0"
-    "@rainbow-d9/n3" "1.2.0"
+    "@rainbow-d9/n2" "1.2.1"
+    "@rainbow-d9/n3" "1.2.1"
     echarts "^5.4.3"
 
-"@rainbow-d9/n1@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/n1/-/n1-1.2.0.tgz#61fa1db6bdcdd5520636e5cd615c6fb8b6b68c98"
-  integrity sha512-3L03+rYDjmVNIMaehiERUi9bDudpL0uSFjfPZv/H5hdn48Pc4FtFSXUk0dazP5N3L9Rn1deAV6mbO5UMhUFb8g==
+"@rainbow-d9/n1@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/n1/-/n1-1.2.1.tgz#81acee50c01608ccde9af69c8939ea5a2bf70d51"
+  integrity sha512-/ragRx7XwRQZm1Ztv9oJgTv2YVrBb8vUlyiVJ5wR0RmgybrYf2MuXZLNX3O7NZwbciHjCBni91cWEbVC9zqHTQ==
   dependencies:
     buffer "^6.0.3"
     events "^3.3.0"
     nanoid "^4.0.0"
-    react "^18.2.0"
-    react-dom "^18.2.0"
+    react "^18.3.1"
+    react-dom "^18.3.1"
 
-"@rainbow-d9/n2@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/n2/-/n2-1.2.0.tgz#43d9af417bfa4f8f305d797474366dbbe4aaa85d"
-  integrity sha512-ndRyIRsVgRmskpO/rE6RpyE5lmgZpQ9EXrXrpSap383aflp3P4vvzc9Vfn6oernpowXV5kLSLRcwBy6LoM1aXw==
+"@rainbow-d9/n2@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/n2/-/n2-1.2.1.tgz#c1317435056f0d1dae0d51954e788ff0814eb46d"
+  integrity sha512-wsNCoGQLS5BYrjjgeE3Wjw4UCH7kyYMglgCr4imuhRX49h4VD2u8VrqMIvzNSKJNsyyVXp6k7ca2WjeYsqu50A==
   dependencies:
-    "@rainbow-d9/n1" "1.2.0"
+    "@rainbow-d9/n1" "1.2.1"
     color "^4.2.3"
     dayjs "^1.11.7"
     imask "^7.5.0"
-    react "^18.2.0"
-    react-dom "^18.2.0"
+    react "^18.3.1"
+    react-dom "^18.3.1"
     react-imask "^7.5.0"
     styled-components "5.3.11"
 
-"@rainbow-d9/n3@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/n3/-/n3-1.2.0.tgz#ca0a95871db6dca4e937a37089a54c3f83fe0f4c"
-  integrity sha512-1qkCcGyOPd5htjxWroqN/gL/jyG2O0kJBY4qBKWB6jfH84/UGFvStq9Ufg99JlhZa3VvhRcYCZWvW94yYumf+Q==
+"@rainbow-d9/n3@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/n3/-/n3-1.2.1.tgz#2b759761c0874fbbf68487cc9e5d860e8c93dd69"
+  integrity sha512-mIctDW4MDcpKuyYiX1PqB6NTshqSDFmpAj6qndbmXgUY2vhrSyT3Sm1/tqoQPBrzfe5cgbglereGsaErJkVD0Q==
   dependencies:
-    "@rainbow-d9/n1" "1.2.0"
+    "@rainbow-d9/n1" "1.2.1"
     mdast "^3.0.0"
     mdast-util-from-markdown "2.0.1"
     mdast-util-frontmatter "2.0.1"
@@ -872,56 +872,56 @@
     micromark-extension-gfm-table "2.0.0"
     micromark-extension-gfm-task-list-item "2.0.1"
 
-"@rainbow-d9/n5@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/n5/-/n5-1.2.0.tgz#5897a0059afb5ec43502762537c88332ca15bf4b"
-  integrity sha512-nFhJD4lz//fb4DI0QRPNnw3qgUkpCIKW20cuSVLA/3jAhlJLWTpzjxXfCjD4NBwuGjyZi15pzKI3TclpcaZRig==
+"@rainbow-d9/n5@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/n5/-/n5-1.2.1.tgz#993fe62dc1d9c1f7062c6c35892be4e03b722aa8"
+  integrity sha512-6cK3N/2UOd3MqPovCQeEcucldEYCk5boLJ6naudg9vk4cjBcg+kgBq6P78bnpH1Is3WlvY7/byMdRVakWA7dZA==
   dependencies:
     "@codemirror/lang-javascript" "^6.2.2"
     "@codemirror/lang-json" "^6.0.1"
     "@codemirror/lang-markdown" "^6.2.4"
-    "@rainbow-d9/n2" "1.2.0"
-    "@rainbow-d9/n3" "1.2.0"
+    "@rainbow-d9/n2" "1.2.1"
+    "@rainbow-d9/n3" "1.2.1"
     codemirror "^6.0.1"
     nanoid "^4.0.0"
-    react "^18.2.0"
-    react-dom "^18.2.0"
+    react "^18.3.1"
+    react-dom "^18.3.1"
     styled-components "5.3.11"
 
-"@rainbow-d9/n6@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/n6/-/n6-1.2.0.tgz#a91ef4caee67086713bd63a94bf76839d1aad46c"
-  integrity sha512-YbZoUCyEYl7mgRy9FtWouHOM27w0zDLjsYemzLkv4Ref2D1zLO/V4cCE93bCCb/1aWuMm1MFKUnnAlm+Wz2uaw==
+"@rainbow-d9/n6@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/n6/-/n6-1.2.1.tgz#8485f8a4f2a5e74aeac7748822494e1ddfffa09a"
+  integrity sha512-T3d8u2bLjS0+Qhw4Z/Z5X0ANO+vIwcoNyJkcjiuSd7ut4cnkeYXtXwBW0SS88qmVdr8eziC4krBhMZXlHdoWlA==
   dependencies:
     "@codemirror/lang-javascript" "^6.2.2"
     "@codemirror/lang-sql" "^6.7.0"
     "@projectstorm/react-diagrams" "^7.0.4"
-    "@rainbow-d9/n2" "1.2.0"
-    "@rainbow-d9/n3" "1.2.0"
-    "@rainbow-d9/ts-vfs" "1.2.0"
+    "@rainbow-d9/n2" "1.2.1"
+    "@rainbow-d9/n3" "1.2.1"
+    "@rainbow-d9/ts-vfs" "1.2.1"
     "@valtown/codemirror-ts" "^2.2.0"
     color "^4.2.3"
     dom-to-image "^2.6.0"
     github-markdown-css "^5.5.0"
     js-yaml "^4.1.0"
     nanoid "^4.0.0"
-    react "^18.2.0"
-    react-dom "^18.2.0"
+    react "^18.3.1"
+    react-dom "^18.3.1"
     react-markdown "9.0.1"
     react-syntax-highlighter "^15.5.0"
     remark-gfm "4.0.0"
     styled-components "5.3.11"
     typescript "4.9.5"
 
-"@rainbow-d9/ts-vfs@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/ts-vfs/-/ts-vfs-1.2.0.tgz#85a817dbeac851b5361dba92f51558d2947474a9"
-  integrity sha512-PhOK9Y+6Ka/FtVQ/SBHbkS/QzfcLRsSXxX0YTAbn/VL0umAWOYGxKKrEx9bnp3xN8BoQutAebmBpD4ueTFQqqQ==
+"@rainbow-d9/ts-vfs@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/ts-vfs/-/ts-vfs-1.2.1.tgz#7b8846a8cd303c7fdb2640e5f645d2620f0c0dbc"
+  integrity sha512-cA3rG0oaVdgp9Sbx4YcNvSiBZXWvc0F7dKCnRBwAdp7671dpXieJEhca5aqpSxbyPTzbDRoLIH258z36bGDBVA==
   dependencies:
     "@codemirror/lang-javascript" "^6.2.2"
     comlink "^4.4.1"
-    react "^18.2.0"
-    react-dom "^18.2.0"
+    react "^18.3.1"
+    react-dom "^18.3.1"
     styled-components "5.3.11"
     typescript "4.9.5"
 
@@ -3042,7 +3042,7 @@ queue-microtask@^1.2.2:
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
-react-dom@^18.2.0, react-dom@^18.3.1:
+react-dom@^18.3.1:
   version "18.3.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.3.1.tgz#c2265d79511b57d479b3dd3fdfa51536494c5cb4"
   integrity sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==

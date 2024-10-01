@@ -55,5 +55,5 @@ export const ThemeHandler = (props: { theme: MutableRefObject<ThemeKind> }) => {
 		};
 	}, [on, off, fire, forceUpdate, theme]);
 
-	return <div className={theme.current} style={{display: 'none'}}/>;
+	return <div data-w="theme-handler" className={theme.current} style={{display: 'none'}}/>;
 };
