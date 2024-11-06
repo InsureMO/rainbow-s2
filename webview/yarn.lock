@@ -818,19 +818,19 @@
     "@projectstorm/react-diagrams-defaults" "7.1.3"
     "@projectstorm/react-diagrams-routing" "7.1.3"
 
-"@rainbow-d9/echarts@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/echarts/-/echarts-1.2.1.tgz#754fb635a3b3638a704b61180cb678385ce2926e"
-  integrity sha512-2Mtea5k3BKXzah664assdfvX1cwudhBgdTFcE777AGVsZGGahnrxiEx9qOmRk3GlPR/yNAN+kGHQmzLnxS1p8Q==
+"@rainbow-d9/echarts@^1.2.18":
+  version "1.2.18"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/echarts/-/echarts-1.2.18.tgz#fa6063a58eb14af67cc5bfb1141e39fd5cfaadcf"
+  integrity sha512-gxkhNWBHPyDaw2c4vk7fw7XvbxMM1TK1JLpBtjlmfxW4FayDHcZv9TPuVqoh6sRGtSyRPuApB1nidIrYGjpWdw==
   dependencies:
-    "@rainbow-d9/n2" "1.2.1"
-    "@rainbow-d9/n3" "1.2.1"
+    "@rainbow-d9/n2" "1.2.18"
+    "@rainbow-d9/n3" "1.2.18"
     echarts "^5.4.3"
 
-"@rainbow-d9/n1@1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/n1/-/n1-1.2.1.tgz#81acee50c01608ccde9af69c8939ea5a2bf70d51"
-  integrity sha512-/ragRx7XwRQZm1Ztv9oJgTv2YVrBb8vUlyiVJ5wR0RmgybrYf2MuXZLNX3O7NZwbciHjCBni91cWEbVC9zqHTQ==
+"@rainbow-d9/n1@1.2.18":
+  version "1.2.18"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/n1/-/n1-1.2.18.tgz#9de35ad7e8e838d1e316eebce8547f6198fece03"
+  integrity sha512-YQt4imbgRzyYJZNU1s6Bldbqo6CuZtKNnIA4+xZBun4SZTmIRqKIvPQPpPJ6gvhhiDVkvEvzPD7uY3tQCAmWBQ==
   dependencies:
     buffer "^6.0.3"
     events "^3.3.0"
@@ -838,12 +838,12 @@
     react "^18.3.1"
     react-dom "^18.3.1"
 
-"@rainbow-d9/n2@1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/n2/-/n2-1.2.1.tgz#c1317435056f0d1dae0d51954e788ff0814eb46d"
-  integrity sha512-wsNCoGQLS5BYrjjgeE3Wjw4UCH7kyYMglgCr4imuhRX49h4VD2u8VrqMIvzNSKJNsyyVXp6k7ca2WjeYsqu50A==
+"@rainbow-d9/n2@1.2.18":
+  version "1.2.18"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/n2/-/n2-1.2.18.tgz#cc87986892ef7c1b54ce336757bb98fdb8e90025"
+  integrity sha512-8GVKmJ3ivC5B2RJqLFhdSBXOWEHLraq0vHY0mFQ1JkxYfKZ0hwRZq1UA53wXAJF6J3S/3Q7DdpGvYfvBUsEyCQ==
   dependencies:
-    "@rainbow-d9/n1" "1.2.1"
+    "@rainbow-d9/n1" "1.2.18"
     color "^4.2.3"
     dayjs "^1.11.7"
     imask "^7.5.0"
@@ -852,12 +852,12 @@
     react-imask "^7.5.0"
     styled-components "5.3.11"
 
-"@rainbow-d9/n3@1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/n3/-/n3-1.2.1.tgz#2b759761c0874fbbf68487cc9e5d860e8c93dd69"
-  integrity sha512-mIctDW4MDcpKuyYiX1PqB6NTshqSDFmpAj6qndbmXgUY2vhrSyT3Sm1/tqoQPBrzfe5cgbglereGsaErJkVD0Q==
+"@rainbow-d9/n3@1.2.18":
+  version "1.2.18"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/n3/-/n3-1.2.18.tgz#3870e950b556d3839246a2aa96e26f517dfa5156"
+  integrity sha512-WnsUhY4eRKZ6JNBGYEj0Ry4cdQjyl/TePq2nDu0A6E4hRUma+AUS8W/2WfIgUsKQJtL4Rk8qagRN2irNed2Gcw==
   dependencies:
-    "@rainbow-d9/n1" "1.2.1"
+    "@rainbow-d9/n1" "1.2.18"
     mdast "^3.0.0"
     mdast-util-from-markdown "2.0.1"
     mdast-util-frontmatter "2.0.1"
@@ -872,34 +872,33 @@
     micromark-extension-gfm-table "2.0.0"
     micromark-extension-gfm-task-list-item "2.0.1"
 
-"@rainbow-d9/n5@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/n5/-/n5-1.2.1.tgz#993fe62dc1d9c1f7062c6c35892be4e03b722aa8"
-  integrity sha512-6cK3N/2UOd3MqPovCQeEcucldEYCk5boLJ6naudg9vk4cjBcg+kgBq6P78bnpH1Is3WlvY7/byMdRVakWA7dZA==
+"@rainbow-d9/n5@^1.2.18":
+  version "1.2.18"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/n5/-/n5-1.2.18.tgz#8b754296d7af85efaba13c04fbb54fb6f1ff0ee1"
+  integrity sha512-YVwlknblQUvJxAh44dK/BHNTPENfVUWq+O61dmlOCCjXOKl2a7hfxrhKj7qBxX9zF0+CLwWsjE6RuLp/ds4SWQ==
   dependencies:
     "@codemirror/lang-javascript" "^6.2.2"
     "@codemirror/lang-json" "^6.0.1"
     "@codemirror/lang-markdown" "^6.2.4"
-    "@rainbow-d9/n2" "1.2.1"
-    "@rainbow-d9/n3" "1.2.1"
+    "@rainbow-d9/n2" "1.2.18"
+    "@rainbow-d9/n3" "1.2.18"
     codemirror "^6.0.1"
     nanoid "^4.0.0"
     react "^18.3.1"
     react-dom "^18.3.1"
     styled-components "5.3.11"
 
-"@rainbow-d9/n6@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/n6/-/n6-1.2.1.tgz#8485f8a4f2a5e74aeac7748822494e1ddfffa09a"
-  integrity sha512-T3d8u2bLjS0+Qhw4Z/Z5X0ANO+vIwcoNyJkcjiuSd7ut4cnkeYXtXwBW0SS88qmVdr8eziC4krBhMZXlHdoWlA==
+"@rainbow-d9/n6@^1.2.18":
+  version "1.2.18"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/n6/-/n6-1.2.18.tgz#bde43f7cee7088eea8fa98e37965b64dd1b3c444"
+  integrity sha512-qe1T4V75zjPqFD7KsBUGXr3Qr601n+lIIfOhi+zLfRpNW/c9qL0mRIVbnIDFNJml0DEMpFhyY9P7MSTWZvvCUA==
   dependencies:
     "@codemirror/lang-javascript" "^6.2.2"
     "@codemirror/lang-sql" "^6.7.0"
     "@projectstorm/react-diagrams" "^7.0.4"
-    "@rainbow-d9/n2" "1.2.1"
-    "@rainbow-d9/n3" "1.2.1"
-    "@rainbow-d9/ts-vfs" "1.2.1"
-    "@valtown/codemirror-ts" "^2.2.0"
+    "@rainbow-d9/n2" "1.2.18"
+    "@rainbow-d9/n3" "1.2.18"
+    "@rainbow-d9/ts-vfs" "1.2.18"
     color "^4.2.3"
     dom-to-image "^2.6.0"
     github-markdown-css "^5.5.0"
@@ -913,10 +912,10 @@
     styled-components "5.3.11"
     typescript "4.9.5"
 
-"@rainbow-d9/ts-vfs@1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/ts-vfs/-/ts-vfs-1.2.1.tgz#7b8846a8cd303c7fdb2640e5f645d2620f0c0dbc"
-  integrity sha512-cA3rG0oaVdgp9Sbx4YcNvSiBZXWvc0F7dKCnRBwAdp7671dpXieJEhca5aqpSxbyPTzbDRoLIH258z36bGDBVA==
+"@rainbow-d9/ts-vfs@1.2.18":
+  version "1.2.18"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/ts-vfs/-/ts-vfs-1.2.18.tgz#052deb5164d392216bcdc2bf9126a91153f5cbed"
+  integrity sha512-RJC6punnVhUaeG1Geq/44/K3RsxPW0rVrQtwHMto0Iz/ljQzhbXJgJdcnfEW2aMpSE6bE/K5Kq0CnpBOiyU0MQ==
   dependencies:
     "@codemirror/lang-javascript" "^6.2.2"
     comlink "^4.4.1"
@@ -1236,11 +1235,6 @@
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
-
-"@valtown/codemirror-ts@^2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@valtown/codemirror-ts/-/codemirror-ts-2.2.0.tgz#99b7a386c95cb4a4f93df9c8370845d1d389e49d"
-  integrity sha512-p5PDt/T2rz83w6QoFQj8N0ojgfNIk/48k9u7VoyTyeBMZSz+kSHB00sKOFZ+OjCrUbl3cyGAmn/u+MInIxmfMQ==
 
 "@vitejs/plugin-react@^4.3.1":
   version "4.3.1"

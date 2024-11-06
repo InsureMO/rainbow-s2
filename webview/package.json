@@ -10,9 +10,9 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"@rainbow-d9/echarts": "^1.2.1",
-		"@rainbow-d9/n5": "^1.2.1",
-		"@rainbow-d9/n6": "^1.2.1",
+		"@rainbow-d9/echarts": "^1.2.18",
+		"@rainbow-d9/n5": "^1.2.18",
+		"@rainbow-d9/n6": "^1.2.18",
 		"@uiw/codemirror-theme-vscode": "^4.23.0",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1"
