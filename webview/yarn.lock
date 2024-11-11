@@ -811,19 +811,19 @@
     "@projectstorm/react-diagrams-defaults" "7.1.3"
     "@projectstorm/react-diagrams-routing" "7.1.3"
 
-"@rainbow-d9/echarts@^1.2.20":
-  version "1.2.20"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/echarts/-/echarts-1.2.20.tgz#ac910ee2802887871333d8b0a999fcd5cb7110b2"
-  integrity sha512-umQ+mcjWmBU2H0TIQwD33EP/NJJJsnG53jxl+0kB8ZID+ry6jG++nIrrxu2jzXnBY+CghyU/tQUZXUT85D/YKQ==
+"@rainbow-d9/echarts@^1.2.21":
+  version "1.2.21"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/echarts/-/echarts-1.2.21.tgz#35abb040c81137fbc52ffebfce122654c9149c87"
+  integrity sha512-9PiPra8Pxd62QBSiA2UiaAc0RrJuwIHPUgV9QmBgpea/YJJHMBwusXUMnUMdRTiw7M4OChyACtP9b1oW1LpQog==
   dependencies:
-    "@rainbow-d9/n2" "1.2.20"
-    "@rainbow-d9/n3" "1.2.20"
+    "@rainbow-d9/n2" "1.2.21"
+    "@rainbow-d9/n3" "1.2.21"
     echarts "^5.4.3"
 
-"@rainbow-d9/n1@1.2.20":
-  version "1.2.20"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/n1/-/n1-1.2.20.tgz#fc8517096712a82eccebb9dcb3ff7f522bf2250d"
-  integrity sha512-XBWTs2hwNcYALnWnFLet5j3EtBj5UHl8oFvSbaMUchqI3sknXQzR4BR92uh2GVCPgAxi4Gl+xt07kpXGu9EYZw==
+"@rainbow-d9/n1@1.2.21":
+  version "1.2.21"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/n1/-/n1-1.2.21.tgz#cae478f1f004b6223b0178116a94d2e8973601d3"
+  integrity sha512-PWkZPkx4ungB/sW/U5iLHfDg4jByjx4ry0MEd6chyg0KiN30KR8TnAl5Xe0WJSKlNwA9St386GfMnkh9ROkpKQ==
   dependencies:
     buffer "^6.0.3"
     events "^3.3.0"
@@ -831,12 +831,12 @@
     react "^18.3.1"
     react-dom "^18.3.1"
 
-"@rainbow-d9/n2@1.2.20":
-  version "1.2.20"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/n2/-/n2-1.2.20.tgz#ebb2488c568c819ed65580417ff3700df712fb31"
-  integrity sha512-JXPO/NVfeXwC0KggacA5Br7tc8u+aVoXlTM/SKxxj3MU4WtPadIav4rv4aVP1aZSTGb8hrnZhw293vPBjp+gAA==
+"@rainbow-d9/n2@1.2.21":
+  version "1.2.21"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/n2/-/n2-1.2.21.tgz#1709499dc1109a1e21951bd7b9c97bb762f19a25"
+  integrity sha512-8QYqgwPAQUnnww4XesdoHq23N1b+CIkW1kGYykTMenK5EhYAVlyfpf4NEacwpLI7jppjjn4YXFT9J9EEhcLOBg==
   dependencies:
-    "@rainbow-d9/n1" "1.2.20"
+    "@rainbow-d9/n1" "1.2.21"
     color "^4.2.3"
     dayjs "^1.11.7"
     imask "^7.5.0"
@@ -845,42 +845,42 @@
     react-imask "^7.5.0"
     styled-components "^6.1.13"
 
-"@rainbow-d9/n3@1.2.20":
-  version "1.2.20"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/n3/-/n3-1.2.20.tgz#6ba4dabf546f67554f175702847e999ef612cdd4"
-  integrity sha512-p91QrsTpYRMVHjcAYIDIaD5dylBARsBx5dBFVMpbM2vrz0PgqhII9ORxTmBG418WFpg0eGfsx09pftSG3kvPng==
+"@rainbow-d9/n3@1.2.21":
+  version "1.2.21"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/n3/-/n3-1.2.21.tgz#fe0f9e19d5203cbdad68226acd5df82ced318b2e"
+  integrity sha512-lwHVofwh3DC9TQ0RwD0ZQl55+4i7D0e470RQ5OHQtpfyq7GmOPnV4TQXlKWaB/8R1Wwv0dgt2Vj+UJu58HfX9g==
   dependencies:
-    "@rainbow-d9/n1" "1.2.20"
+    "@rainbow-d9/n1" "1.2.21"
     remark-frontmatter "^5.0.0"
     remark-gfm "^4.0.0"
     remark-parse "^11.0.0"
 
-"@rainbow-d9/n5@^1.2.20":
-  version "1.2.20"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/n5/-/n5-1.2.20.tgz#d9407505829284b4699d8930f8e9f0bc9fcee311"
-  integrity sha512-qaQX4HuOz5c/63MD9rffuCRxA+lG5PjF+qzT383n31ScRg3DZ9inJKXHtZC6Y2NxmIiyfuEEEiuz5UT+KrVpnw==
+"@rainbow-d9/n5@^1.2.21":
+  version "1.2.21"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/n5/-/n5-1.2.21.tgz#ad8e7743970d5c1631f180140d783835f20a632d"
+  integrity sha512-jutMtIDpkwX9T+lvcdJaCFn/juNd2oAlDJsej7FHHd6Hsw9RxazmNyHIbyTgHuS8HDZOhsUdeJIyKAQBHHzwFg==
   dependencies:
     "@codemirror/lang-javascript" "^6.2.2"
     "@codemirror/lang-json" "^6.0.1"
     "@codemirror/lang-markdown" "^6.2.4"
-    "@rainbow-d9/n2" "1.2.20"
-    "@rainbow-d9/n3" "1.2.20"
+    "@rainbow-d9/n2" "1.2.21"
+    "@rainbow-d9/n3" "1.2.21"
     codemirror "^6.0.1"
     nanoid "^4.0.0"
     react "^18.3.1"
     react-dom "^18.3.1"
 
-"@rainbow-d9/n6@^1.2.20":
-  version "1.2.20"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/n6/-/n6-1.2.20.tgz#11db4e32ffc8fad33887af57eb018677368f6cc0"
-  integrity sha512-SKBW6fJi5UnQU5fwuHEx7aU4iljw96ihjmzTlKmfoNtijikY5X4sFQJ2aKC9yHe5yNjG9WqdayoG8QLmVL/RZA==
+"@rainbow-d9/n6@^1.2.21":
+  version "1.2.21"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/n6/-/n6-1.2.21.tgz#ab8c5ffdaef6cc4eed2b1dfc8d9a43430a5ccf08"
+  integrity sha512-xch8QpwDhTHl9BU67DmYYsvuaQFrm4QVBGi9L0su6B+oY0ZTggiLMxYpd3GLPcemJl1jML7YsH/Fwlxb+gBx4Q==
   dependencies:
     "@codemirror/lang-javascript" "^6.2.2"
     "@codemirror/lang-sql" "^6.7.0"
     "@projectstorm/react-diagrams" "^7.0.4"
-    "@rainbow-d9/n2" "1.2.20"
-    "@rainbow-d9/n3" "1.2.20"
-    "@rainbow-d9/ts-vfs" "1.2.20"
+    "@rainbow-d9/n2" "1.2.21"
+    "@rainbow-d9/n3" "1.2.21"
+    "@rainbow-d9/ts-vfs" "1.2.21"
     color "^4.2.3"
     dom-to-image "^2.6.0"
     github-markdown-css "^5.5.0"
@@ -893,10 +893,10 @@
     remark-gfm "4.0.0"
     typescript "5.6.3"
 
-"@rainbow-d9/ts-vfs@1.2.20":
-  version "1.2.20"
-  resolved "https://registry.yarnpkg.com/@rainbow-d9/ts-vfs/-/ts-vfs-1.2.20.tgz#4c592667ce7b3fb72cd8344ee3784e0b16cb7403"
-  integrity sha512-FKNKPmIcLqG1prRQpd9hFSJk8uMcOv/wqjwaaTXBIyFme6h7fWh5nxzKG6dZ4bo1rSuXMAhGjabiSl6I2EqtVg==
+"@rainbow-d9/ts-vfs@1.2.21":
+  version "1.2.21"
+  resolved "https://registry.yarnpkg.com/@rainbow-d9/ts-vfs/-/ts-vfs-1.2.21.tgz#972bce82eeb3fc679173eff64db87b8695e06347"
+  integrity sha512-093J+Jhpb02cDlyttMxT3aQ3wC082K1Fx0Qz0D3VA+TfioSDNPbCe3duiWcFwdu7FGMeQQTHyLe962F3Bu2o5Q==
   dependencies:
     "@codemirror/lang-javascript" "^6.2.2"
     comlink "^4.4.1"
