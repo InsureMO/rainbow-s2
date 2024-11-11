@@ -12,5 +12,6 @@
 - Dropdown::Y::y
   - options: @ext.staticCodes.available
 - Button::
+  - $fc
   - text: click me
   - click: @ext.clickMe
